@@ -1,1511 +1,2112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ansh Srivastava — Research, Innovation, Space Science, Technology and ASTROVYN." />
-  <meta name="theme-color" content="#050507" />
-  <title>Ansh Srivastava | Research • Innovation • ASTROVYN</title>
-
-  <style>
-    /* =========================
-       RESET
-    ========================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #050507;
-      color: #f5f5f5;
-      overflow-x: hidden;
-      line-height: 1.7;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    ::selection {
-      background: #ffffff;
-      color: #050507;
-    }
-
-    /* =========================
-       BACKGROUND
-    ========================== */
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -10;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(90, 30, 150, 0.18), transparent 30%),
-        radial-gradient(circle at 80% 70%, rgba(0, 110, 180, 0.13), transparent 30%),
-        #050507;
-    }
-
-    .grid {
-      position: absolute;
-      inset: 0;
-      opacity: 0.13;
-      background-image:
-        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: 55px 55px;
-      transform: perspective(500px) rotateX(60deg) scale(1.5);
-      transform-origin: center bottom;
-    }
-
-    .orb {
-      position: absolute;
-      width: 450px;
-      height: 450px;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: .18;
-      animation: floatOrb 12s ease-in-out infinite alternate;
-    }
-
-    .orb.one {
-      background: #713cff;
-      top: -180px;
-      left: -130px;
-    }
-
-    .orb.two {
-      background: #008cff;
-      right: -180px;
-      bottom: -120px;
-      animation-delay: -4s;
-    }
-
-    .orb.three {
-      background: #ff2f9a;
-      width: 250px;
-      height: 250px;
-      left: 45%;
-      top: 45%;
-      animation-delay: -7s;
-    }
-
-    @keyframes floatOrb {
-      from {
-        transform: translate(0, 0) scale(1);
-      }
-      to {
-        transform: translate(80px, -50px) scale(1.2);
-      }
-    }
-
-    /* =========================
-       LOADER
-    ========================== */
-    #loader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: grid;
-      place-items: center;
-      background: #050507;
-      transition: opacity .7s ease, visibility .7s ease;
-    }
-
-    #loader.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-inner {
-      text-align: center;
-    }
-
-    .loader-ring {
-      width: 70px;
-      height: 70px;
-      border: 2px solid rgba(255,255,255,.12);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: auto auto 20px;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .loader-text {
-      font-size: 12px;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: #aaa;
-    }
-
-    /* =========================
-       NAVBAR
-    ========================== */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 20px 5%;
-      transition: .4s ease;
-    }
-
-    header.scrolled {
-      background: rgba(5,5,7,.75);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .nav {
-      max-width: 1300px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 3px;
-    }
-
-    .logo span {
-      opacity: .45;
-      font-weight: 400;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      position: relative;
-      font-size: 13px;
-      color: #aaa;
-      transition: .3s;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -7px;
-      width: 0;
-      height: 1px;
-      background: #fff;
-      transition: .3s;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .menu {
-      display: none;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,.15);
-      color: white;
-      padding: 8px 11px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    /* =========================
-       COMMON
-    ========================== */
-    section {
-      width: min(1200px, 90%);
-      margin: auto;
-      padding: 130px 0;
-    }
-
-    .section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      color: #777;
-      margin-bottom: 15px;
-    }
-
-    .section-title {
-      font-size: clamp(38px, 6vw, 75px);
-      line-height: 1;
-      letter-spacing: -3px;
-      margin-bottom: 25px;
-    }
-
-    .section-description {
-      max-width: 720px;
-      color: #999;
-      font-size: 16px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(90deg, #fff, #aaa, #fff);
-      background-size: 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shine 5s linear infinite;
-    }
-
-    @keyframes shine {
-      to {
-        background-position: 200%;
-      }
-    }
-
-    /* =========================
-       HERO
-    ========================== */
-    .hero {
-      min-height: 100vh;
-      width: min(1400px, 90%);
-      display: flex;
-      align-items: center;
-      position: relative;
-      padding-top: 120px;
-    }
-
-    .hero-content {
-      max-width: 900px;
-    }
-
-    .hello {
-      height: 35px;
-      margin-bottom: 25px;
-      color: #aaa;
-      font-size: 15px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      font-size: clamp(65px, 11vw, 150px);
-      line-height: .88;
-      letter-spacing: -7px;
-      margin-bottom: 35px;
-    }
-
-    .hero h1 .outline {
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.6);
-    }
-
-    .hero-subtitle {
-      max-width: 650px;
-      color: #999;
-      font-size: 18px;
-      margin-bottom: 40px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .btn {
-      padding: 14px 22px;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 100px;
-      background: rgba(255,255,255,.04);
-      color: #fff;
-      cursor: pointer;
-      transition: .35s;
-      display: inline-block;
-      font-size: 13px;
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      background: #fff;
-      color: #050507;
-    }
-
-    .scroll-indicator {
-      position: absolute;
-      bottom: 30px;
-      left: 0;
-      color: #666;
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      writing-mode: vertical-rl;
-    }
-
-    /* =========================
-       INTRO
-    ========================== */
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .big-number {
-      font-size: 150px;
-      font-weight: 900;
-      color: rgba(255,255,255,.035);
-      line-height: .8;
-    }
-
-    .intro-text p {
-      color: #aaa;
-      font-size: 18px;
-      margin-bottom: 22px;
-    }
-
-    /* =========================
-       ASTROVYN
-    ========================== */
-    .astro-box {
-      position: relative;
-      overflow: hidden;
-      padding: 70px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.025);
-      border-radius: 30px;
-    }
-
-    .astro-box::before {
-      content: "";
-      position: absolute;
-      width: 350px;
-      height: 350px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 50%;
-      right: -100px;
-      top: -100px;
-      box-shadow:
-        0 0 0 30px rgba(255,255,255,.015),
-        0 0 0 60px rgba(255,255,255,.01);
-    }
-
-    .astro-name {
-      font-size: clamp(55px, 10vw, 130px);
-      letter-spacing: -6px;
-      line-height: .9;
-      margin-bottom: 35px;
-    }
-
-    .astro-tagline {
-      font-size: 24px;
-      color: #ddd;
-      max-width: 700px;
-      margin-bottom: 25px;
-    }
-
-    /* =========================
-       AREAS
-    ========================== */
-    .cards {
-      margin-top: 60px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .card {
-      position: relative;
-      min-height: 270px;
-      padding: 30px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 22px;
-      background: rgba(255,255,255,.025);
-      overflow: hidden;
-      transition: .45s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      right: -70px;
-      bottom: -70px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.07);
-      transition: .5s;
-    }
-
-    .card:hover {
-      transform: translateY(-12px);
-      border-color: rgba(255,255,255,.3);
-      background: rgba(255,255,255,.055);
-    }
-
-    .card:hover::before {
-      transform: scale(2);
-    }
-
-    .card-number {
-      color: #555;
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    .card h3 {
-      font-size: 25px;
-      margin: 50px 0 12px;
-    }
-
-    .card p {
-      color: #888;
-      font-size: 14px;
-    }
-
-    /* =========================
-       RESEARCH
-    ========================== */
-    .research-list {
-      margin-top: 60px;
-      border-top: 1px solid rgba(255,255,255,.12);
-    }
-
-    .research-item {
-      display: grid;
-      grid-template-columns: 80px 1fr 100px;
-      align-items: center;
-      gap: 25px;
-      padding: 30px 10px;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-      transition: .3s;
-    }
-
-    .research-item:hover {
-      padding-left: 25px;
-      background: rgba(255,255,255,.025);
-    }
-
-    .research-number {
-      color: #555;
-    }
-
-    .research-item h3 {
-      font-size: 25px;
-    }
-
-    .research-item p {
-      color: #777;
-      font-size: 13px;
-      margin-top: 5px;
-    }
-
-    .research-arrow {
-      text-align: right;
-      color: #777;
-      font-size: 25px;
-    }
-
-    /* =========================
-       PROJECTS
-    ========================== */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: 60px;
-    }
-
-    .project {
-      min-height: 400px;
-      padding: 35px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 25px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.01));
-      transition: .45s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .project:hover {
-      transform: scale(1.015);
-      border-color: rgba(255,255,255,.28);
-    }
-
-    .project-top {
-      display: flex;
-      justify-content: space-between;
-      color: #666;
-      font-size: 12px;
-    }
-
-    .project h3 {
-      font-size: 38px;
-      letter-spacing: -1px;
-      margin: 20px 0;
-    }
-
-    .project p {
-      color: #888;
-      max-width: 500px;
-    }
-
-    .project-link {
-      margin-top: 25px;
-      color: #fff;
-      font-size: 13px;
-    }
-
-    /* =========================
-       BOOK
-    ========================== */
-    .book {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .book-cover {
-      aspect-ratio: 3 / 4;
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 10px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        radial-gradient(circle at 70% 20%, rgba(120,100,255,.25), transparent 30%),
-        linear-gradient(145deg, #15151a, #060609);
-      box-shadow: 25px 30px 70px rgba(0,0,0,.5);
-      transform: rotate(-4deg);
-      transition: .5s;
-    }
-
-    .book-cover:hover {
-      transform: rotate(0) translateY(-10px);
-    }
-
-    .book-small {
-      font-size: 9px;
-      letter-spacing: 4px;
-      color: #777;
-    }
-
-    .book-title {
-      font-size: 38px;
-      line-height: 1;
-      letter-spacing: -2px;
-    }
-
-    .book-bottom {
-      font-size: 11px;
-      color: #666;
-    }
-
-    .book-content p {
-      color: #999;
-      margin-bottom: 20px;
-      font-size: 17px;
-    }
-
-    /* =========================
-       TIMELINE
-    ========================== */
-    .timeline {
-      margin-top: 60px;
-      position: relative;
-      border-left: 1px solid rgba(255,255,255,.14);
-    }
-
-    .timeline-item {
-      position: relative;
-      padding: 0 0 55px 45px;
-    }
-
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -5px;
-      top: 7px;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 20px rgba(255,255,255,.7);
-    }
-
-    .timeline-year {
-      color: #666;
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-
-    .timeline-item h3 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-
-    .timeline-item p {
-      max-width: 650px;
-      color: #888;
-    }
-
-    /* =========================
-       VISION
-    ========================== */
-    .vision {
-      min-height: 70vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .vision-text {
-      font-size: clamp(40px, 7vw, 90px);
-      letter-spacing: -4px;
-      line-height: 1;
-      max-width: 1100px;
-    }
-
-    .vision-text span {
-      color: #555;
-    }
-
-    /* =========================
-       CONTACT
-    ========================== */
-    .contact-box {
-      padding: 70px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 30px;
-      background: rgba(255,255,255,.025);
-    }
-
-    .contact-links {
-      margin-top: 50px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .contact-link {
-      padding: 25px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 18px;
-      transition: .35s;
-    }
-
-    .contact-link:hover {
-      background: #fff;
-      color: #050507;
-      transform: translateY(-7px);
-    }
-
-    .contact-link small {
-      display: block;
-      color: #777;
-      margin-bottom: 8px;
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .contact-link:hover small {
-      color: #555;
-    }
-
-    /* =========================
-       FOOTER
-    ========================== */
-    footer {
-      width: min(1200px, 90%);
-      margin: auto;
-      padding: 40px 0;
-      border-top: 1px solid rgba(255,255,255,.1);
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      color: #555;
-      font-size: 12px;
-    }
-
-    /* =========================
-       REVEAL ANIMATION
-    ========================== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity .9s ease, transform .9s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================== */
-    @media (max-width: 900px) {
-      .nav-links {
-        position: fixed;
-        top: 75px;
-        right: 5%;
-        width: 220px;
-        padding: 20px;
-        flex-direction: column;
-        gap: 18px;
-        background: rgba(5,5,7,.95);
-        border: 1px solid rgba(255,255,255,.1);
-        border-radius: 15px;
-        transform: translateY(-20px);
-        opacity: 0;
-        pointer-events: none;
-        transition: .3s;
-      }
-
-      .nav-links.open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .menu {
-        display: block;
-      }
-
-      .intro-grid,
-      .book {
-        grid-template-columns: 1fr;
-        gap: 35px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .contact-links {
-        grid-template-columns: 1fr;
-      }
-
-      .book-cover {
-        max-width: 300px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      section {
-        padding: 90px 0;
-      }
-
-      .hero h1 {
-        letter-spacing: -4px;
-      }
-
-      .cards,
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .astro-box,
-      .contact-box {
-        padding: 35px 25px;
-      }
-
-      .astro-name {
-        letter-spacing: -3px;
-      }
-
-      .research-item {
-        grid-template-columns: 40px 1fr 30px;
-        gap: 10px;
-      }
-
-      .research-item h3 {
-        font-size: 19px;
-      }
-
-      .project {
-        min-height: 330px;
-      }
-
-      footer {
-        flex-direction: column;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ansh Srivastava — Research, Innovation, Space Science, Technology and ASTROVYN">
+<title>Ansh Srivastava — Exploration Beyond Limits</title>
+
+<style>
+/* =========================================================
+   ROOT
+========================================================= */
+:root{
+  --bg:#030407;
+  --bg2:#070a10;
+  --text:#f5f7fa;
+  --muted:#8d96a5;
+  --line:rgba(255,255,255,.11);
+  --glass:rgba(255,255,255,.035);
+  --accent:#8c7cff;
+  --accent2:#35c8ff;
+  --max:1280px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+
+body.locked{
+  overflow:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+::selection{
+  background:white;
+  color:#000;
+}
+
+/* =========================================================
+   INTRO SCREEN
+========================================================= */
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#020306;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  transition:
+    opacity 1s ease,
+    visibility 1s ease,
+    transform 1.2s cubic-bezier(.7,0,.2,1);
+}
+
+#intro.exit{
+  opacity:0;
+  visibility:hidden;
+  transform:scale(1.08);
+}
+
+.intro-grid{
+  position:absolute;
+  inset:-30%;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:55px 55px;
+  transform:
+    perspective(600px)
+    rotateX(65deg)
+    translateY(120px);
+  animation:introGrid 12s linear infinite;
+}
+
+@keyframes introGrid{
+  to{
+    transform:
+      perspective(600px)
+      rotateX(65deg)
+      translateY(180px);
+  }
+}
+
+.intro-glow{
+  position:absolute;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(117,96,255,.22),transparent 65%);
+  filter:blur(15px);
+  animation:introGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes introGlow{
+  from{transform:scale(.8)}
+  to{transform:scale(1.3)}
+}
+
+.intro-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  width:90%;
+}
+
+.intro-label{
+  font-size:10px;
+  letter-spacing:6px;
+  color:#626a78;
+  text-transform:uppercase;
+  margin-bottom:28px;
+}
+
+#hello{
+  font-size:clamp(50px,10vw,130px);
+  line-height:1;
+  letter-spacing:-5px;
+  font-weight:800;
+  min-height:1em;
+  transition:opacity .3s ease,transform .3s ease;
+}
+
+.intro-line{
+  width:0;
+  height:1px;
+  background:rgba(255,255,255,.5);
+  margin:35px auto;
+  animation:introLine 2s 1s forwards;
+}
+
+@keyframes introLine{
+  to{width:min(420px,70vw)}
+}
+
+.intro-name{
+  opacity:0;
+  transform:translateY(30px);
+  animation:introName 1.2s 2s forwards;
+}
+
+.intro-name h1{
+  font-size:clamp(30px,6vw,75px);
+  letter-spacing:-3px;
+}
+
+.intro-name p{
+  color:#707887;
+  margin-top:12px;
+  font-size:12px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+
+.enter{
+  opacity:0;
+  transform:translateY(20px);
+  animation:introName 1s 3.2s forwards;
+  margin-top:45px;
+}
+
+@keyframes introName{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.enter button{
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.04);
+  color:white;
+  padding:15px 28px;
+  border-radius:100px;
+  cursor:pointer;
+  letter-spacing:2px;
+  font-size:11px;
+  transition:.4s;
+}
+
+.enter button:hover{
+  background:white;
+  color:#000;
+  transform:translateY(-5px);
+  box-shadow:0 15px 50px rgba(255,255,255,.12);
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-10;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(83,60,220,.13),transparent 28%),
+    radial-gradient(circle at 85% 70%,rgba(0,170,255,.08),transparent 28%),
+    var(--bg);
+}
+
+.stars{
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px);
+  background-size:90px 90px;
+  opacity:.18;
+  animation:starsMove 30s linear infinite;
+}
+
+@keyframes starsMove{
+  to{transform:translateY(90px)}
+}
+
+.orb{
+  position:absolute;
+  width:400px;
+  height:400px;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.12;
+}
+
+.orb.a{
+  background:#785cff;
+  left:-150px;
+  top:15%;
+  animation:orbA 12s infinite alternate ease-in-out;
+}
+
+.orb.b{
+  background:#00aaff;
+  right:-150px;
+  bottom:5%;
+  animation:orbB 15s infinite alternate ease-in-out;
+}
+
+@keyframes orbA{
+  to{transform:translate(150px,-80px) scale(1.2)}
+}
+
+@keyframes orbB{
+  to{transform:translate(-120px,60px) scale(1.15)}
+}
+
+/* =========================================================
+   NAV
+========================================================= */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:5000;
+  padding:20px 4%;
+  transition:.4s;
+}
+
+header.scrolled{
+  background:rgba(3,4,7,.72);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  max-width:var(--max);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:3px;
+}
+
+.logo span{
+  color:#596170;
+}
+
+.nav-links{
+  display:flex;
+  gap:28px;
+  list-style:none;
+}
+
+.nav-links a{
+  font-size:12px;
+  color:#8d95a3;
+  transition:.3s;
+  position:relative;
+}
+
+.nav-links a:hover{
+  color:white;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-7px;
+  width:0;
+  height:1px;
+  background:white;
+  transition:.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+.menu{
+  display:none;
+  border:1px solid var(--line);
+  background:transparent;
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* =========================================================
+   COMMON
+========================================================= */
+section{
+  width:min(var(--max),90%);
+  margin:auto;
+  padding:135px 0;
+}
+
+.label{
+  color:#636c7a;
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:10px;
+  margin-bottom:18px;
+}
+
+.title{
+  font-size:clamp(42px,7vw,90px);
+  line-height:.94;
+  letter-spacing:-5px;
+  margin-bottom:25px;
+}
+
+.gradient{
+  background:linear-gradient(90deg,#fff,#aaa,#fff);
+  background-size:200%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove{
+  to{background-position:200%}
+}
+
+.description{
+  color:var(--muted);
+  max-width:720px;
+  font-size:16px;
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(55px);
+  transition:
+    opacity .9s ease,
+    transform .9s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  padding-top:120px;
+}
+
+.hero-content{
+  max-width:1050px;
+}
+
+.hero-mini{
+  color:#727b89;
+  font-size:11px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-size:clamp(65px,11vw,155px);
+  line-height:.84;
+  letter-spacing:-8px;
+  margin-bottom:38px;
+}
+
+.outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.5);
+}
+
+.hero-text{
+  max-width:700px;
+  color:#929aa8;
+  font-size:18px;
+  margin-bottom:38px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.btn{
+  display:inline-block;
+  padding:14px 23px;
+  border:1px solid var(--line);
+  border-radius:100px;
+  color:white;
+  background:rgba(255,255,255,.035);
+  font-size:12px;
+  transition:.4s;
+}
+
+.btn:hover{
+  background:white;
+  color:#000;
+  transform:translateY(-5px);
+}
+
+.scroll{
+  position:absolute;
+  bottom:30px;
+  left:0;
+  color:#555e6b;
+  font-size:9px;
+  letter-spacing:4px;
+  writing-mode:vertical-rl;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+.about-grid{
+  display:grid;
+  grid-template-columns:.7fr 1.5fr;
+  gap:80px;
+}
+
+.big-number{
+  font-size:170px;
+  line-height:.7;
+  font-weight:900;
+  color:rgba(255,255,255,.035);
+}
+
+.about-text p{
+  color:#929aa8;
+  font-size:17px;
+  margin-bottom:22px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.stat{
+  padding:45px 25px;
+  border-right:1px solid var(--line);
+  transition:.4s;
+}
+
+.stat:last-child{
+  border-right:none;
+}
+
+.stat:hover{
+  background:rgba(255,255,255,.035);
+}
+
+.stat strong{
+  display:block;
+  font-size:48px;
+  margin-bottom:5px;
+}
+
+.stat span{
+  color:#697281;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+/* =========================================================
+   ASTROVYN
+========================================================= */
+.astro{
+  position:relative;
+  overflow:hidden;
+  padding:80px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(112,91,255,.15),transparent 30%),
+    rgba(255,255,255,.025);
+}
+
+.astro::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  right:-200px;
+  top:-250px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 50px rgba(255,255,255,.015),
+    0 0 0 100px rgba(255,255,255,.01);
+}
+
+.astro-name{
+  font-size:clamp(55px,10vw,130px);
+  letter-spacing:-7px;
+  line-height:.85;
+  margin-bottom:35px;
+}
+
+.astro-tag{
+  font-size:25px;
+  margin-bottom:20px;
+}
+
+.astro p{
+  color:#89929f;
+  max-width:780px;
+}
+
+.astro-buttons{
+  margin-top:35px;
+}
+
+/* =========================================================
+   INTERESTS
+========================================================= */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:60px;
+}
+
+.card{
+  position:relative;
+  min-height:290px;
+  padding:30px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--glass);
+  transition:.5s cubic-bezier(.2,.8,.2,1);
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:translateY(-12px) rotateX(2deg);
+  border-color:rgba(255,255,255,.3);
+}
+
+.card-number{
+  color:#555e6b;
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+.card-icon{
+  font-size:32px;
+  margin-top:45px;
+}
+
+.card h3{
+  font-size:25px;
+  margin:15px 0 10px;
+}
+
+.card p{
+  color:#7d8694;
+  font-size:13px;
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  right:-100px;
+  bottom:-100px;
+  background:rgba(255,255,255,.05);
+  transition:.5s;
+}
+
+.card:hover::after{
+  transform:scale(2);
+}
+
+/* =========================================================
+   RESEARCH EXPLORER
+========================================================= */
+.research{
+  margin-top:60px;
+  border-top:1px solid var(--line);
+}
+
+.research-item{
+  display:grid;
+  grid-template-columns:70px 1fr 50px;
+  align-items:center;
+  gap:20px;
+  padding:32px 10px;
+  border-bottom:1px solid var(--line);
+  transition:.4s;
+  cursor:pointer;
+}
+
+.research-item:hover{
+  padding-left:28px;
+  background:rgba(255,255,255,.025);
+}
+
+.research-number{
+  color:#555e6b;
+}
+
+.research-item h3{
+  font-size:24px;
+}
+
+.research-item p{
+  color:#737d8b;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.arrow{
+  font-size:22px;
+  color:#666f7c;
+}
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:60px;
+}
+
+.project{
+  min-height:390px;
+  padding:35px;
+  border:1px solid var(--line);
+  border-radius:25px;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.055),
+    rgba(255,255,255,.01)
+  );
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:.5s;
+  cursor:pointer;
+}
+
+.project:hover{
+  transform:translateY(-10px);
+  border-color:rgba(255,255,255,.3);
+}
+
+.project-meta{
+  display:flex;
+  justify-content:space-between;
+  color:#555e6b;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.project h3{
+  font-size:38px;
+  letter-spacing:-2px;
+  margin:20px 0;
+}
+
+.project p{
+  color:#818b99;
+  font-size:14px;
+}
+
+.project-more{
+  color:white;
+  font-size:12px;
+  margin-top:20px;
+}
+
+/* =========================================================
+   PROCESS
+========================================================= */
+.process{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-top:60px;
+}
+
+.process-item{
+  padding:30px;
+  min-height:230px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.025);
+  transition:.4s;
+}
+
+.process-item:hover{
+  transform:translateY(-8px);
+  background:rgba(255,255,255,.05);
+}
+
+.process-item span{
+  color:#555e6b;
+  font-size:11px;
+}
+
+.process-item h3{
+  margin:45px 0 12px;
+  font-size:22px;
+}
+
+.process-item p{
+  color:#737d8a;
+  font-size:13px;
+}
+
+/* =========================================================
+   VISION
+========================================================= */
+.vision{
+  min-height:75vh;
+  display:flex;
+  align-items:center;
+}
+
+.vision-text{
+  max-width:1150px;
+  font-size:clamp(42px,7vw,92px);
+  line-height:.98;
+  letter-spacing:-5px;
+}
+
+.dim{
+  color:#444c58;
+}
+
+/* =========================================================
+   FUTURE
+========================================================= */
+.future-box{
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:70px;
+  background:
+    radial-gradient(circle at 50% 0,rgba(100,80,255,.1),transparent 40%),
+    rgba(255,255,255,.025);
+  text-align:center;
+}
+
+.future-box h2{
+  font-size:clamp(40px,7vw,90px);
+  letter-spacing:-4px;
+}
+
+.future-box p{
+  max-width:700px;
+  margin:25px auto 0;
+  color:#7e8795;
+}
+
+/* =========================================================
+   CONTACT
+========================================================= */
+.contact-box{
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:70px;
+  background:rgba(255,255,255,.025);
+}
+
+.contact-links{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:50px;
+}
+
+.contact{
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  transition:.4s;
+}
+
+.contact:hover{
+  background:white;
+  color:black;
+  transform:translateY(-8px);
+}
+
+.contact small{
+  display:block;
+  color:#68717e;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:9px;
+  margin-bottom:8px;
+}
+
+.contact:hover small{
+  color:#555;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer{
+  width:min(var(--max),90%);
+  margin:auto;
+  padding:40px 0;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  color:#555e6b;
+  font-size:11px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:9000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(15px);
+  opacity:0;
+  visibility:hidden;
+  transition:.4s;
+}
+
+.modal.open{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-box{
+  width:min(700px,100%);
+  max-height:85vh;
+  overflow:auto;
+  padding:45px;
+  background:#090b10;
+  border:1px solid var(--line);
+  border-radius:25px;
+  transform:translateY(30px) scale(.97);
+  transition:.4s;
+}
+
+.modal.open .modal-box{
+  transform:translateY(0) scale(1);
+}
+
+.modal-close{
+  float:right;
+  border:1px solid var(--line);
+  background:transparent;
+  color:white;
+  border-radius:50%;
+  width:35px;
+  height:35px;
+  cursor:pointer;
+}
+
+.modal-box h2{
+  font-size:40px;
+  margin-bottom:20px;
+}
+
+.modal-box p{
+  color:#89929f;
+  margin-bottom:15px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media(max-width:950px){
+
+  .nav-links{
+    position:fixed;
+    right:5%;
+    top:75px;
+    width:230px;
+    padding:22px;
+    background:rgba(3,4,7,.96);
+    border:1px solid var(--line);
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    transform:translateY(-15px);
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+  }
+
+  .nav-links.open{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .about-grid{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .process{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .contact-links{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  section{
+    padding:95px 0;
+  }
+
+  .hero h1{
+    letter-spacing:-5px;
+  }
+
+  .cards,
+  .projects{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat{
+    border-bottom:1px solid var(--line);
+  }
+
+  .astro,
+  .future-box,
+  .contact-box{
+    padding:35px 25px;
+  }
+
+  .astro-name{
+    letter-spacing:-4px;
+  }
+
+  .process{
+    grid-template-columns:1fr;
+  }
+
+  .research-item{
+    grid-template-columns:35px 1fr 30px;
+  }
+
+  .research-item h3{
+    font-size:18px;
+  }
+
+  .project h3{
+    font-size:31px;
+  }
+
+  .vision-text{
+    letter-spacing:-3px;
+  }
+
+  footer{
+    flex-direction:column;
+  }
+}
+</style>
 </head>
 
-<body>
+<body class="locked">
 
-  <!-- LOADER -->
-  <div id="loader">
-    <div class="loader-inner">
-      <div class="loader-ring"></div>
-      <div class="loader-text">Initializing Portfolio</div>
+<!-- =========================================================
+     CINEMATIC INTRO
+========================================================= -->
+<div id="intro">
+
+  <div class="intro-grid"></div>
+  <div class="intro-glow"></div>
+
+  <div class="intro-content">
+
+    <div class="intro-label">
+      Welcome to the exploration
     </div>
-  </div>
 
-  <!-- BACKGROUND -->
-  <div class="background">
-    <div class="grid"></div>
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-  </div>
+    <div id="hello">Hello</div>
 
-  <!-- NAVIGATION -->
-  <header id="header">
-    <nav class="nav">
-      <a href="#home" class="logo">ANSH<span>/01</span></a>
+    <div class="intro-line"></div>
 
-      <button class="menu" id="menuButton" aria-label="Open navigation">
-        ☰
+    <div class="intro-name">
+      <h1>I AM ANSH SRIVASTAVA</h1>
+      <p>Research • Technology • Innovation • Exploration</p>
+    </div>
+
+    <div class="enter">
+      <button id="enterBtn">
+        ENTER PORTFOLIO →
       </button>
+    </div>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#astrovyn">ASTROVYN</a></li>
-        <li><a href="#research">Research</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#book">Book</a></li>
-        <li><a href="#vision">Vision</a></li>
-        <li><a href="#contact">Connect</a></li>
-      </ul>
-    </nav>
-  </header>
+  </div>
+</div>
 
-  <main>
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+<div class="background">
+  <div class="stars"></div>
+  <div class="orb a"></div>
+  <div class="orb b"></div>
+</div>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <div class="hero-content reveal">
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+<header id="header">
 
-        <div class="hello">
-          <span id="helloText">Hello</span>
-        </div>
+  <nav class="nav">
 
-        <h1>
-          I AM<br>
-          <span class="gradient-text">ANSH</span><br>
-          <span class="outline">SRIVASTAVA</span>
-        </h1>
+    <a href="#home" class="logo">
+      ANSH<span>/01</span>
+    </a>
 
-        <p class="hero-subtitle">
-          Exploring ideas at the intersection of space science, technology,
-          research, artificial intelligence and innovation — while turning
-          curiosity into meaningful work.
-        </p>
+    <button class="menu" id="menu">
+      ☰
+    </button>
 
-        <div class="hero-actions">
-          <a class="btn" href="#about">Explore My Work ↓</a>
-          <a class="btn" href="#astrovyn">Discover ASTROVYN</a>
-        </div>
-      </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#astrovyn">ASTROVYN</a></li>
+      <li><a href="#explore">Explore</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#contact">Connect</a></li>
+    </ul>
 
-      <div class="scroll-indicator">
-        Scroll to explore
-      </div>
-    </section>
+  </nav>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="intro-grid">
+</header>
 
-        <div class="reveal">
-          <div class="section-label">01 / About</div>
-          <div class="big-number">01</div>
-        </div>
+<main>
 
-        <div class="intro-text reveal">
-          <h2 class="section-title">
-            Curiosity is<br>
-            <span class="gradient-text">the beginning.</span>
-          </h2>
+<!-- =========================================================
+     HERO
+========================================================= -->
+<section class="hero" id="home">
 
-          <p>
-            I am Ansh Srivastava, a Class 11 student and JEE aspirant with a
-            strong interest in science, technology, space research and
-            innovation.
-          </p>
+  <div class="hero-content reveal">
 
-          <p>
-            My goal is not simply to learn existing ideas, but to understand
-            how things work, question them, experiment with possibilities and
-            gradually transform those ideas into projects.
-          </p>
+    <div class="hero-mini">
+      Student • Explorer • Builder
+    </div>
 
-          <p>
-            This portfolio represents that journey — the subjects I explore,
-            the projects I work on, the questions I investigate and the ideas
-            I want to develop in the future.
-          </p>
-        </div>
+    <h1>
+      EXPLORE.<br>
+      <span class="gradient">CREATE.</span><br>
+      <span class="outline">INNOVATE.</span>
+    </h1>
 
-      </div>
-    </section>
+    <p class="hero-text">
+      I am Ansh Srivastava — a Class 11 student and JEE aspirant
+      exploring space science, technology, artificial intelligence,
+      robotics, physics and the possibilities that exist beyond
+      what we already know.
+    </p>
 
-    <!-- ASTROVYN -->
-    <section id="astrovyn">
-      <div class="section-label reveal">02 / Community & Innovation</div>
+    <div class="actions">
+      <a class="btn" href="#about">Explore My Journey ↓</a>
+      <a class="btn" href="#projects">View Projects</a>
+      <a class="btn" href="#contact">Let's Connect</a>
+    </div>
 
-      <div class="astro-box reveal">
-        <div class="astro-name gradient-text">ASTROVYN</div>
+  </div>
 
-        <p class="astro-tagline">
-          Converting curiosity into innovations.
-        </p>
+  <div class="scroll">
+    SCROLL TO EXPLORE
+  </div>
 
-        <p class="section-description">
-          ASTROVYN is an evolving space where ideas, research, experiments
-          and technology come together. It is built around a simple principle:
-          curiosity should not stop at questions — it should lead toward
-          exploration, experimentation and innovation.
-        </p>
+</section>
 
-        <br>
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+<section id="about">
 
-        <p class="section-description">
-          Through ASTROVYN, different concepts can be researched, discussed,
-          developed and eventually presented to the world. The long-term
-          vision is to create a platform where young minds can explore
-          science and technology beyond conventional boundaries.
-        </p>
-      </div>
-    </section>
+  <div class="about-grid">
 
-    <!-- AREAS -->
-    <section>
-      <div class="section-label reveal">03 / Exploration</div>
+    <div class="reveal">
+      <div class="label">01 / About</div>
+      <div class="big-number">01</div>
+    </div>
 
-      <h2 class="section-title reveal">
-        Areas I<br>
-        <span class="gradient-text">Explore.</span>
+    <div class="about-text reveal">
+
+      <h2 class="title">
+        Curiosity is<br>
+        <span class="gradient">the starting point.</span>
       </h2>
 
-      <p class="section-description reveal">
-        My interests cover multiple connected fields. Each one gives me a
-        different way to understand the world and imagine what could exist
-        next.
+      <p>
+        I am currently in Class 11 and preparing for JEE while
+        developing my interests in science and technology.
       </p>
 
-      <div class="cards">
-
-        <article class="card reveal">
-          <div class="card-number">01</div>
-          <h3>Space Science</h3>
-          <p>
-            Exploring planets, stars, galaxies, cosmic phenomena, space
-            environments and the fundamental science behind the universe.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-number">02</div>
-          <h3>Space Technology</h3>
-          <p>
-            Understanding spacecraft, propulsion, satellites, robotics,
-            exploration systems and the technologies that make space missions
-            possible.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-number">03</div>
-          <h3>Artificial Intelligence</h3>
-          <p>
-            Learning how intelligent systems work and exploring the potential
-            of AI in science, research, automation and future technologies.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-number">04</div>
-          <h3>Robotics</h3>
-          <p>
-            Exploring autonomous systems, machines and robotic concepts that
-            can solve problems in challenging environments.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-number">05</div>
-          <h3>Physics</h3>
-          <p>
-            Studying the fundamental principles that explain matter, energy,
-            motion, forces, fields and the universe.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-number">06</div>
-          <h3>Innovation</h3>
-          <p>
-            Combining knowledge from different fields to transform questions
-            and observations into new ideas, experiments and projects.
-          </p>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- RESEARCH -->
-    <section id="research">
-      <div class="section-label reveal">04 / Research Direction</div>
-
-      <h2 class="section-title reveal">
-        Questions worth<br>
-        <span class="gradient-text">exploring.</span>
-      </h2>
-
-      <p class="section-description reveal">
-        Research begins with asking better questions. These are examples of
-        the kinds of subjects that can become deeper investigations.
+      <p>
+        My curiosity goes beyond learning formulas or memorising
+        information. I like understanding why something works,
+        what could be improved and what could possibly be built
+        from that knowledge.
       </p>
 
-      <div class="research-list">
-
-        <a href="#projects" class="research-item reveal">
-          <div class="research-number">01</div>
-          <div>
-            <h3>Planetary Science</h3>
-            <p>Worlds, surfaces, atmospheres, magnetic fields and planetary evolution.</p>
-          </div>
-          <div class="research-arrow">↗</div>
-        </a>
-
-        <a href="#projects" class="research-item reveal">
-          <div class="research-number">02</div>
-          <div>
-            <h3>Stellar Energy</h3>
-            <p>How stars generate energy and how that energy shapes their environments.</p>
-          </div>
-          <div class="research-arrow">↗</div>
-        </a>
-
-        <a href="#projects" class="research-item reveal">
-          <div class="research-number">03</div>
-          <div>
-            <h3>Future Space Systems</h3>
-            <p>Concepts involving robotics, autonomous exploration and advanced spacecraft.</p>
-          </div>
-          <div class="research-arrow">↗</div>
-        </a>
-
-        <a href="#projects" class="research-item reveal">
-          <div class="research-number">04</div>
-          <div>
-            <h3>AI + Science</h3>
-            <p>Investigating how intelligent systems can support scientific discovery.</p>
-          </div>
-          <div class="research-arrow">↗</div>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="section-label reveal">05 / Projects & Ideas</div>
-
-      <h2 class="section-title reveal">
-        From ideas<br>
-        <span class="gradient-text">to experiments.</span>
-      </h2>
-
-      <p class="section-description reveal">
-        Projects are where knowledge becomes practical. This section can grow
-        as new research, experiments and technology concepts are developed.
+      <p>
+        Space science and technology are some of my strongest
+        areas of interest, but my exploration also extends into
+        artificial intelligence, robotics, physics, engineering
+        concepts and digital innovation.
       </p>
 
-      <div class="project-grid">
+      <p>
+        This portfolio is a representation of that ongoing journey:
+        learning, researching, experimenting, creating and sharing.
+      </p>
 
-        <article class="project reveal">
-          <div class="project-top">
-            <span>PROJECT / 001</span>
-            <span>SPACE</span>
-          </div>
+    </div>
 
-          <div>
-            <h3>Planetary Research</h3>
-            <p>
-              A research-oriented exploration of planetary characteristics,
-              environments, magnetic fields, surfaces and the science that
-              makes every world unique.
-            </p>
-          </div>
+  </div>
 
-          <a href="#research" class="project-link">
-            Explore research →
-          </a>
-        </article>
+</section>
 
-        <article class="project reveal">
-          <div class="project-top">
-            <span>PROJECT / 002</span>
-            <span>AI</span>
-          </div>
+<!-- =========================================================
+     STATS
+========================================================= -->
+<section>
 
-          <div>
-            <h3>AI Exploration</h3>
-            <p>
-              Learning the foundations of artificial intelligence and
-              investigating how intelligent systems could become useful tools
-              for research and innovation.
-            </p>
-          </div>
+  <div class="stats reveal">
 
-          <a href="#vision" class="project-link">
-            See future direction →
-          </a>
-        </article>
+    <div class="stat">
+      <strong>11</strong>
+      <span>Class</span>
+    </div>
 
-        <article class="project reveal">
-          <div class="project-top">
-            <span>PROJECT / 003</span>
-            <span>ROBOTICS</span>
-          </div>
+    <div class="stat">
+      <strong>JEE</strong>
+      <span>Current Goal</span>
+    </div>
 
-          <div>
-            <h3>Autonomous Systems</h3>
-            <p>
-              Exploring the concepts behind machines that can sense their
-              environment, make decisions and perform tasks with limited
-              human intervention.
-            </p>
-          </div>
+    <div class="stat">
+      <strong>∞</strong>
+      <span>Questions</span>
+    </div>
 
-          <a href="#contact" class="project-link">
-            Connect →
-          </a>
-        </article>
+    <div class="stat">
+      <strong>01</strong>
+      <span>Journey</span>
+    </div>
 
-        <article class="project reveal">
-          <div class="project-top">
-            <span>PROJECT / 004</span>
-            <span>CONCEPT</span>
-          </div>
+  </div>
 
-          <div>
-            <h3>Future Technologies</h3>
-            <p>
-              A growing collection of concepts that connect physics,
-              engineering, computing and imagination to investigate possible
-              technologies of tomorrow.
-            </p>
-          </div>
+</section>
 
-          <a href="#vision" class="project-link">
-            View vision →
-          </a>
-        </article>
+<!-- =========================================================
+     ASTROVYN
+========================================================= -->
+<section id="astrovyn">
 
+  <div class="label reveal">
+    02 / ASTROVYN
+  </div>
+
+  <div class="astro reveal">
+
+    <div class="astro-name gradient">
+      ASTROVYN
+    </div>
+
+    <div class="astro-tag">
+      Converting curiosity into innovations.
+    </div>
+
+    <p>
+      ASTROVYN is an evolving platform and community built around
+      curiosity, research, ideas, experimentation and innovation.
+    </p>
+
+    <br>
+
+    <p>
+      The purpose is to explore different areas of science and
+      technology, work on interesting concepts and gradually turn
+      those concepts into meaningful projects that can be shared
+      with the world.
+    </p>
+
+    <br>
+
+    <p>
+      It represents a mindset: don't stop at asking a question.
+      Explore it. Research it. Build something around it.
+    </p>
+
+    <div class="astro-buttons">
+      <a class="btn" href="#research">
+        Explore Research →
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     EXPLORE
+========================================================= -->
+<section id="explore">
+
+  <div class="label reveal">
+    03 / Areas of Exploration
+  </div>
+
+  <h2 class="title reveal">
+    The fields<br>
+    <span class="gradient">I explore.</span>
+  </h2>
+
+  <p class="description reveal">
+    Different fields provide different tools for understanding
+    the universe and creating new possibilities.
+  </p>
+
+  <div class="cards">
+
+    <article class="card reveal" data-modal="space">
+      <div class="card-number">01</div>
+      <div class="card-icon">✦</div>
+      <h3>Space Science</h3>
+      <p>
+        Planets, stars, galaxies, cosmic phenomena and the
+        science behind the universe.
+      </p>
+    </article>
+
+    <article class="card reveal" data-modal="technology">
+      <div class="card-number">02</div>
+      <div class="card-icon">◈</div>
+      <h3>Space Technology</h3>
+      <p>
+        Spacecraft, satellites, propulsion, exploration systems
+        and future technologies.
+      </p>
+    </article>
+
+    <article class="card reveal" data-modal="ai">
+      <div class="card-number">03</div>
+      <div class="card-icon">⌬</div>
+      <h3>Artificial Intelligence</h3>
+      <p>
+        Understanding intelligent systems and their potential
+        role in science and innovation.
+      </p>
+    </article>
+
+    <article class="card reveal" data-modal="robotics">
+      <div class="card-number">04</div>
+      <div class="card-icon">◇</div>
+      <h3>Robotics</h3>
+      <p>
+        Autonomous machines, sensing, decision-making and
+        robotic exploration.
+      </p>
+    </article>
+
+    <article class="card reveal" data-modal="physics">
+      <div class="card-number">05</div>
+      <div class="card-icon">∑</div>
+      <h3>Physics</h3>
+      <p>
+        The fundamental principles that explain matter,
+        energy, motion, fields and the cosmos.
+      </p>
+    </article>
+
+    <article class="card reveal" data-modal="innovation">
+      <div class="card-number">06</div>
+      <div class="card-icon">↗</div>
+      <h3>Innovation</h3>
+      <p>
+        Connecting ideas from different disciplines to create
+        new concepts and solutions.
+      </p>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     RESEARCH
+========================================================= -->
+<section id="research">
+
+  <div class="label reveal">
+    04 / Research
+  </div>
+
+  <h2 class="title reveal">
+    Questions worth<br>
+    <span class="gradient">exploring.</span>
+  </h2>
+
+  <p class="description reveal">
+    Every investigation begins with a question. These are some
+    directions that connect with my interests.
+  </p>
+
+  <div class="research">
+
+    <div class="research-item reveal" data-modal="planetary">
+      <div class="research-number">01</div>
+      <div>
+        <h3>Planetary Science</h3>
+        <p>Worlds, surfaces, atmospheres and magnetic fields.</p>
       </div>
-    </section>
+      <div class="arrow">↗</div>
+    </div>
 
-    <!-- BOOK -->
-    <section id="book">
-      <div class="section-label reveal">06 / Writing & Knowledge</div>
-
-      <div class="book">
-
-        <div class="book-cover reveal">
-          <div class="book-small">SPACE SCIENCE</div>
-
-          <div class="book-title">
-            A JOURNEY<br>
-            INTO THE<br>
-            INFINITE
-          </div>
-
-          <div class="book-bottom">
-            AN EXPLORATION OF THE UNIVERSE
-          </div>
-        </div>
-
-        <div class="book-content reveal">
-          <h2 class="section-title">
-            A Journey Into<br>
-            <span class="gradient-text">The Infinite.</span>
-          </h2>
-
-          <p>
-            Alongside research and projects, I am working on a space science
-            book titled <strong>A Journey Into The Infinite</strong>.
-          </p>
-
-          <p>
-            The idea behind the book is to explore the universe in a way that
-            makes complex concepts easier to understand while keeping the
-            curiosity and wonder that makes space science so fascinating.
-          </p>
-
-          <p>
-            From planets and stars to deeper cosmic ideas, the book is part of
-            my effort to learn, organise knowledge and share what I discover.
-          </p>
-
-          <a href="#contact" class="btn">Talk About The Book</a>
-        </div>
-
+    <div class="research-item reveal" data-modal="stars">
+      <div class="research-number">02</div>
+      <div>
+        <h3>Stars & Energy</h3>
+        <p>Understanding stellar energy and cosmic evolution.</p>
       </div>
-    </section>
+      <div class="arrow">↗</div>
+    </div>
 
-    <!-- JOURNEY -->
-    <section>
-      <div class="section-label reveal">07 / Journey</div>
-
-      <h2 class="section-title reveal">
-        Learning is<br>
-        <span class="gradient-text">continuous.</span>
-      </h2>
-
-      <div class="timeline">
-
-        <div class="timeline-item reveal">
-          <div class="timeline-year">01 — FOUNDATION</div>
-          <h3>Building Curiosity</h3>
-          <p>
-            Developing a strong interest in science, technology and the
-            questions surrounding our universe.
-          </p>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-year">02 — EXPLORATION</div>
-          <h3>Going Deeper</h3>
-          <p>
-            Studying space science, physics, technology, AI and related fields
-            beyond the basic classroom level.
-          </p>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-year">03 — CREATION</div>
-          <h3>Building Projects</h3>
-          <p>
-            Turning concepts into research topics, experiments, digital
-            projects and technology ideas.
-          </p>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-year">04 — FUTURE</div>
-          <h3>Innovating Further</h3>
-          <p>
-            Continuing to develop skills and pursue larger ideas at the
-            intersection of science, engineering and technology.
-          </p>
-        </div>
-
+    <div class="research-item reveal" data-modal="future">
+      <div class="research-number">03</div>
+      <div>
+        <h3>Future Space Systems</h3>
+        <p>Autonomous exploration and advanced spacecraft concepts.</p>
       </div>
-    </section>
+      <div class="arrow">↗</div>
+    </div>
 
-    <!-- VISION -->
-    <section id="vision" class="vision">
-      <div class="section-label reveal">08 / Vision</div>
-
-      <div class="vision-text reveal">
-        I don't want to simply <span>follow</span> the future.
-        I want to understand it,
-        <span>build for it</span>,
-        and explore what comes beyond it.
+    <div class="research-item reveal" data-modal="aix">
+      <div class="research-number">04</div>
+      <div>
+        <h3>AI + Science</h3>
+        <p>How intelligent systems could support scientific discovery.</p>
       </div>
-    </section>
+      <div class="arrow">↗</div>
+    </div>
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="contact-box reveal">
+    <div class="research-item reveal" data-modal="energy">
+      <div class="research-number">05</div>
+      <div>
+        <h3>Future Energy</h3>
+        <p>Exploring scientific concepts around energy and technology.</p>
+      </div>
+      <div class="arrow">↗</div>
+    </div>
 
-        <div class="section-label">09 / Let's Connect</div>
+  </div>
 
-        <h2 class="section-title">
-          Let's<br>
-          <span class="gradient-text">Connect.</span>
-        </h2>
+</section>
 
-        <p class="section-description">
-          Have an idea, research topic, collaboration opportunity or simply
-          want to talk about science, technology and innovation?
-          Feel free to connect.
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+<section id="projects">
+
+  <div class="label reveal">
+    05 / Projects
+  </div>
+
+  <h2 class="title reveal">
+    Ideas become<br>
+    <span class="gradient">projects.</span>
+  </h2>
+
+  <p class="description reveal">
+    This section can continuously grow as new projects,
+    experiments and research are developed.
+  </p>
+
+  <div class="projects">
+
+    <article class="project reveal" data-modal="project1">
+
+      <div class="project-meta">
+        <span>PROJECT / 001</span>
+        <span>SPACE</span>
+      </div>
+
+      <div>
+        <h3>Planetary Research</h3>
+        <p>
+          A structured exploration of planets, their physical
+          characteristics, environments and scientific importance.
         </p>
-
-        <div class="contact-links">
-
-          <a class="contact-link" href="tel:+917485071347">
-            <small>Mobile</small>
-            +91 7485071347
-          </a>
-
-          <a class="contact-link"
-             href="https://instagram.com/astr_ovyn"
-             target="_blank"
-             rel="noopener noreferrer">
-            <small>Instagram</small>
-            @astr_ovyn
-          </a>
-
-          <a class="contact-link"
-             href="mailto:astrovyn.nexus@gmail.com">
-            <small>Email</small>
-            astrovyn.nexus@gmail.com
-          </a>
-
-        </div>
-
       </div>
-    </section>
 
-  </main>
+      <div class="project-more">
+        Open project ↗
+      </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div>© <span id="year"></span> Ansh Srivastava</div>
-    <div>Research • Innovation • Exploration</div>
-  </footer>
+    </article>
 
-  <script>
-    /* =========================
-       LOADER
-    ========================== */
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("loader").classList.add("hide");
-      }, 700);
-    });
+    <article class="project reveal" data-modal="project2">
 
-    /* =========================
-       HELLO LANGUAGES
-    ========================== */
-    const greetings = [
-      "Hello",
-      "नमस्ते",
-      "Bonjour",
-      "Hola",
-      "Ciao",
-      "Hallo",
-      "Olá",
-      "こんにちは",
-      "안녕하세요",
-      "你好"
-    ];
+      <div class="project-meta">
+        <span>PROJECT / 002</span>
+        <span>AI</span>
+      </div>
 
-    const helloText = document.getElementById("helloText");
-    let greetingIndex = 0;
+      <div>
+        <h3>AI Exploration</h3>
+        <p>
+          Exploring the foundations of artificial intelligence
+          and its potential applications in science and technology.
+        </p>
+      </div>
 
-    setInterval(() => {
-      helloText.style.opacity = "0";
+      <div class="project-more">
+        Open project ↗
+      </div>
 
-      setTimeout(() => {
-        greetingIndex = (greetingIndex + 1) % greetings.length;
-        helloText.textContent = greetings[greetingIndex];
-        helloText.style.opacity = "1";
-      }, 250);
-    }, 1800);
+    </article>
 
-    helloText.style.transition = "opacity .25s ease";
+    <article class="project reveal" data-modal="project3">
 
-    /* =========================
-       NAVIGATION
-    ========================== */
-    const menuButton = document.getElementById("menuButton");
-    const navLinks = document.getElementById("navLinks");
+      <div class="project-meta">
+        <span>PROJECT / 003</span>
+        <span>ROBOTICS</span>
+      </div>
 
-    menuButton.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
-    });
+      <div>
+        <h3>Autonomous Systems</h3>
+        <p>
+          Investigating how machines can sense environments,
+          process information and make decisions.
+        </p>
+      </div>
 
-    document.querySelectorAll(".nav-links a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
+      <div class="project-more">
+        Open project ↗
+      </div>
+
+    </article>
+
+    <article class="project reveal" data-modal="project4">
+
+      <div class="project-meta">
+        <span>PROJECT / 004</span>
+        <span>FUTURE</span>
+      </div>
+
+      <div>
+        <h3>Future Technology</h3>
+        <p>
+          A collection of concepts connecting science,
+          engineering, computing and imagination.
+        </p>
+      </div>
+
+      <div class="project-more">
+        Open project ↗
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     WORK PROCESS
+========================================================= -->
+<section id="journey">
+
+  <div class="label reveal">
+    06 / Approach
+  </div>
+
+  <h2 class="title reveal">
+    From curiosity<br>
+    <span class="gradient">to creation.</span>
+  </h2>
+
+  <div class="process">
+
+    <div class="process-item reveal">
+      <span>01</span>
+      <h3>Question</h3>
+      <p>
+        Start with something interesting and ask why,
+        how or what could happen next.
+      </p>
+    </div>
+
+    <div class="process-item reveal">
+      <span>02</span>
+      <h3>Research</h3>
+      <p>
+        Learn the science, understand the fundamentals
+        and investigate existing ideas.
+      </p>
+    </div>
+
+    <div class="process-item reveal">
+      <span>03</span>
+      <h3>Experiment</h3>
+      <p>
+        Test concepts, build models, explore possibilities
+        and learn from results.
+      </p>
+    </div>
+
+    <div class="process-item reveal">
+      <span>04</span>
+      <h3>Create</h3>
+      <p>
+        Turn useful knowledge into projects, concepts
+        and innovations that can be shared.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     VISION
+========================================================= -->
+<section class="vision" id="vision">
+
+  <div>
+
+    <div class="label reveal">
+      07 / Vision
+    </div>
+
+    <div class="vision-text reveal">
+      I don't want to simply
+      <span class="dim">follow</span>
+      the future.
+      I want to understand it,
+      <span class="dim">build for it</span>,
+      and explore what comes beyond it.
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     FUTURE
+========================================================= -->
+<section>
+
+  <div class="future-box reveal">
+
+    <div class="label">
+      08 / Looking Ahead
+    </div>
+
+    <h2>
+      The journey<br>
+      <span class="gradient">has just begun.</span>
+    </h2>
+
+    <p>
+      There is still a lot to learn, many questions to investigate
+      and countless ideas waiting to be explored. This portfolio
+      will continue evolving with every new project and discovery.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+<section id="contact">
+
+  <div class="contact-box reveal">
+
+    <div class="label">
+      09 / Let's Connect
+    </div>
+
+    <h2 class="title">
+      Let's<br>
+      <span class="gradient">Connect.</span>
+    </h2>
+
+    <p class="description">
+      Have an idea, research topic, collaboration opportunity,
+      or simply want to talk about science, technology and
+      innovation? Feel free to connect.
+    </p>
+
+    <div class="contact-links">
+
+      <a class="contact" href="tel:+917485071347">
+        <small>Mobile</small>
+        +91 7485071347
+      </a>
+
+      <a class="contact"
+         href="https://instagram.com/astr_ovyn"
+         target="_blank"
+         rel="noopener noreferrer">
+        <small>Instagram</small>
+        @astr_ovyn
+      </a>
+
+      <a class="contact"
+         href="mailto:astrovyn.nexus@gmail.com">
+        <small>Email</small>
+        astrovyn.nexus@gmail.com
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <span>© <span id="year"></span> Ansh Srivastava</span>
+  <span>Explore • Research • Create • Innovate</span>
+</footer>
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <button class="modal-close" id="closeModal">
+      ×
+    </button>
+
+    <div class="label" id="modalLabel">
+      Exploration
+    </div>
+
+    <h2 id="modalTitle">
+      Topic
+    </h2>
+
+    <p id="modalText">
+      Description
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   INTRO HELLO ANIMATION
+========================================================= */
+
+const greetings = [
+  "Hello",
+  "नमस्ते",
+  "Bonjour",
+  "Hola",
+  "Ciao",
+  "Hallo",
+  "Olá",
+  "こんにちは",
+  "안녕하세요",
+  "你好"
+];
+
+const hello = document.getElementById("hello");
+let helloIndex = 0;
+
+const helloInterval = setInterval(() => {
+
+  hello.style.opacity = "0";
+  hello.style.transform = "translateY(10px)";
+
+  setTimeout(() => {
+
+    helloIndex =
+      (helloIndex + 1) % greetings.length;
+
+    hello.textContent =
+      greetings[helloIndex];
+
+    hello.style.opacity = "1";
+    hello.style.transform = "translateY(0)";
+
+  },300);
+
+},900);
+
+
+/* =========================================================
+   ENTER PORTFOLIO
+========================================================= */
+
+const intro = document.getElementById("intro");
+const enterBtn = document.getElementById("enterBtn");
+
+enterBtn.addEventListener("click", () => {
+
+  clearInterval(helloInterval);
+
+  intro.classList.add("exit");
+
+  document.body.classList.remove("locked");
+
+  setTimeout(() => {
+    intro.style.display = "none";
+  },1200);
+
+});
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+const menu = document.getElementById("menu");
+const navLinks = document.getElementById("navLinks");
+
+menu.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
+});
+
+document.querySelectorAll(".nav-links a")
+.forEach(link => {
+
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+  });
+
+});
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+const header =
+  document.getElementById("header");
+
+window.addEventListener("scroll", () => {
+
+  if(window.scrollY > 60){
+    header.classList.add("scrolled");
+  }else{
+    header.classList.remove("scrolled");
+  }
+
+});
+
+
+/* =========================================================
+   REVEAL ON SCROLL
+========================================================= */
+
+const reveals =
+  document.querySelectorAll(".reveal");
+
+const observer =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add("show");
+
+          observer.unobserve(entry.target);
+
+        }
+
       });
-    });
 
-    /* =========================
-       HEADER SCROLL
-    ========================== */
-    const header = document.getElementById("header");
+    },
+    {
+      threshold:.12
+    }
+  );
 
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
-        header.classList.add("scrolled");
-      } else {
-        header.classList.remove("scrolled");
-      }
-    });
+reveals.forEach(element => {
+  observer.observe(element);
+});
 
-    /* =========================
-       SCROLL REVEAL
-    ========================== */
-    const revealElements = document.querySelectorAll(".reveal");
 
-    const revealObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-          }
-        });
-      },
-      {
-        threshold: 0.12
-      }
-    );
+/* =========================================================
+   MODAL CONTENT
+========================================================= */
 
-    revealElements.forEach(element => {
-      revealObserver.observe(element);
-    });
+const modalData = {
 
-    /* =========================
-       MOUSE PARALLAX
-    ========================== */
-    const background = document.querySelector(".background");
+space:{
+  label:"Area / Space Science",
+  title:"Space Science",
+  text:"Space science explores the physical universe beyond Earth. My interests include planets, stars, galaxies, cosmic phenomena, planetary environments and the scientific principles that help us understand the universe."
+},
 
-    window.addEventListener("mousemove", event => {
-      const x = (event.clientX / window.innerWidth - 0.5) * 12;
-      const y = (event.clientY / window.innerHeight - 0.5) * 12;
+technology:{
+  label:"Area / Space Technology",
+  title:"Space Technology",
+  text:"Space technology connects scientific knowledge with engineering. I am interested in spacecraft, satellites, propulsion concepts, exploration systems, robotics and the technologies that make missions beyond Earth possible."
+},
 
-      background.style.transform =
-        `translate(${x}px, ${y}px)`;
-    });
+ai:{
+  label:"Area / Artificial Intelligence",
+  title:"Artificial Intelligence",
+  text:"AI is one of the technologies I want to understand more deeply. I am interested in how machines process information, recognise patterns, make decisions and how these capabilities could support research and innovation."
+},
 
-    /* =========================
-       YEAR
-    ========================== */
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+robotics:{
+  label:"Area / Robotics",
+  title:"Robotics",
+  text:"Robotics combines mechanics, electronics, programming and intelligent decision-making. Autonomous robots could become especially important for environments where humans cannot easily operate."
+},
 
-    /* =========================
-       KEYBOARD ESCAPE
-    ========================== */
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        navLinks.classList.remove("open");
-      }
-    });
-  </script>
+physics:{
+  label:"Area / Physics",
+  title:"Physics",
+  text:"Physics provides the fundamental framework for understanding matter, energy, motion, forces, fields and the universe. It forms an important foundation for my interests in science and technology."
+},
+
+innovation:{
+  label:"Area / Innovation",
+  title:"Innovation",
+  text:"Innovation is about taking knowledge and using it to create something useful, different or better. My goal is to connect ideas from different fields and turn curiosity into meaningful projects."
+},
+
+planetary:{
+  label:"Research / Planetary Science",
+  title:"Planetary Science",
+  text:"Planetary science investigates planets and other worlds: their surfaces, atmospheres, interiors, magnetic fields, origins and evolution. It connects physics, chemistry, geology and astronomy."
+},
+
+stars:{
+  label:"Research / Stellar Science",
+  title:"Stars & Energy",
+  text:"Stars are enormous natural laboratories. Understanding how they form, produce energy and evolve helps us understand both the universe and the origin of many elements found around us."
+},
+
+future:{
+  label:"Research / Space Systems",
+  title:"Future Space Systems",
+  text:"Future exploration may depend increasingly on autonomous systems, advanced spacecraft, robotics and intelligent mission planning. These concepts raise interesting engineering and scientific questions."
+},
+
+aix:{
+  label:"Research / AI + Science",
+  title:"AI + Science",
+  text:"Artificial intelligence could assist scientists by processing large datasets, finding patterns, modelling systems and supporting complex research workflows. Understanding these possibilities is an important part of future exploration."
+},
+
+energy:{
+  label:"Research / Energy",
+  title:"Future Energy",
+  text:"Energy is central to both civilisation and space exploration. Studying different physical mechanisms and technologies can help us understand the challenges involved in creating efficient future systems."
+},
+
+project1:{
+  label:"Project / 001",
+  title:"Planetary Research",
+  text:"A structured exploration of planets and their characteristics. The project can grow into individual research pages covering planetary surfaces, atmospheres, magnetic fields, temperatures, formation and exploration."
+},
+
+project2:{
+  label:"Project / 002",
+  title:"AI Exploration",
+  text:"An ongoing learning and experimentation direction focused on understanding artificial intelligence, machine learning concepts and potential applications in science and technology."
+},
+
+project3:{
+  label:"Project / 003",
+  title:"Autonomous Systems",
+  text:"A project direction focused on understanding how autonomous machines can sense their environment, process information and perform tasks with limited human intervention."
+},
+
+project4:{
+  label:"Project / 004",
+  title:"Future Technology",
+  text:"A collection of technology concepts inspired by science, engineering, computing and future possibilities. New concepts can be added here as the work develops."
+}
+
+};
+
+
+/* =========================================================
+   MODAL SYSTEM
+========================================================= */
+
+const modal =
+  document.getElementById("modal");
+
+const modalTitle =
+  document.getElementById("modalTitle");
+
+const modalText =
+  document.getElementById("modalText");
+
+const modalLabel =
+  document.getElementById("modalLabel");
+
+const closeModal =
+  document.getElementById("closeModal");
+
+document.querySelectorAll("[data-modal]")
+.forEach(element => {
+
+  element.addEventListener("click", () => {
+
+    const key =
+      element.getAttribute("data-modal");
+
+    const data =
+      modalData[key];
+
+    if(!data) return;
+
+    modalLabel.textContent =
+      data.label;
+
+    modalTitle.textContent =
+      data.title;
+
+    modalText.textContent =
+      data.text;
+
+    modal.classList.add("open");
+
+    document.body.classList.add("locked");
+
+  });
+
+});
+
+
+closeModal.addEventListener("click", () => {
+
+  modal.classList.remove("open");
+
+  document.body.classList.remove("locked");
+
+});
+
+
+modal.addEventListener("click", event => {
+
+  if(event.target === modal){
+
+    modal.classList.remove("open");
+
+    document.body.classList.remove("locked");
+
+  }
+
+});
+
+
+document.addEventListener("keydown", event => {
+
+  if(event.key === "Escape"){
+
+    modal.classList.remove("open");
+
+    document.body.classList.remove("locked");
+
+  }
+
+});
+
+
+/* =========================================================
+   MOUSE PARALLAX
+========================================================= */
+
+const background =
+  document.querySelector(".background");
+
+window.addEventListener("mousemove", event => {
+
+  const x =
+    (event.clientX / window.innerWidth - .5) * 8;
+
+  const y =
+    (event.clientY / window.innerHeight - .5) * 8;
+
+  background.style.transform =
+    `translate(${x}px,${y}px)`;
+
+});
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year")
+.textContent = new Date().getFullYear();
+
+</script>
 
 </body>
 </html>
