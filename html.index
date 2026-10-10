@@ -1,0 +1,1051 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050914">
+<meta name="description" content="ASTROVYN — An independent community exploring space science, emerging technology, research, engineering and innovation. Converting curiosity into innovations.">
+<title>ASTROVYN | Beyond The Known</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #050914;
+  --bg2: #080f1d;
+  --panel: rgba(13,25,43,.78);
+  --line: rgba(147,190,255,.15);
+  --blue: #8bc8ff;
+  --white: #f1f6ff;
+  --muted: #96a7bd;
+  --cyan: #55e4ff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:85px; }
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter, sans-serif;
+  overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+button { font:inherit; }
+::selection { background:#8bc8ff; color:#04101d; }
+#stars {
+  position:fixed; inset:0; width:100%; height:100%;
+  z-index:-3; pointer-events:none;
+}
+.ambient {
+  position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(ellipse at 15% 15%,rgba(30,87,151,.18),transparent 42%),
+    radial-gradient(ellipse at 90% 55%,rgba(17,83,120,.12),transparent 40%);
+}
+.noise {
+  position:fixed; inset:0; z-index:10; pointer-events:none;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+.container { width:min(1160px,90%); margin:auto; }
+section { padding:110px 0; position:relative; }
+.section-tag {
+  color:var(--blue); font-size:.73rem; letter-spacing:3px;
+  text-transform:uppercase; margin-bottom:17px; font-weight:700;
+}
+.section-title {
+  font:600 clamp(2rem,5vw,3.6rem)/1.12 "Space Grotesk",sans-serif;
+  letter-spacing:-1.5px; max-width:800px;
+}
+.section-desc {
+  color:var(--muted); line-height:1.9; max-width:700px;
+  margin-top:20px; font-size:.98rem;
+}
+.gradient-text {
+  background:linear-gradient(100deg,#fff,#9dcfff 55%,#60d8ed);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.btn {
+  display:inline-flex; justify-content:center; align-items:center;
+  gap:12px; padding:15px 22px; border-radius:6px;
+  border:1px solid var(--line); cursor:pointer; transition:.3s;
+  font-size:.88rem; font-weight:600;
+}
+.btn-primary { background:#dceeff; color:#06101d; border-color:#dceeff; }
+.btn-primary:hover { background:#fff; transform:translateY(-3px); }
+.btn-outline { background:rgba(255,255,255,.025); }
+.btn-outline:hover { border-color:var(--blue); background:rgba(139,200,255,.08); }
+header {
+  position:fixed; top:0; width:100%; z-index:50;
+  background:rgba(5,9,20,.75); backdrop-filter:blur(20px);
+  border-bottom:1px solid transparent; transition:.3s;
+}
+header.scrolled { border-bottom-color:var(--line); }
+.nav {
+  min-height:76px; display:flex; justify-content:space-between;
+  align-items:center; gap:20px;
+}
+.brand { display:flex; align-items:center; gap:11px; }
+.brand img { width:46px; height:36px; object-fit:contain; }
+.brand-name { font:700 1.18rem "Space Grotesk",sans-serif; letter-spacing:4px; }
+.nav-links { display:flex; gap:27px; align-items:center; }
+.nav-links a {
+  font-size:.78rem; color:#bdc9da; transition:.25s;
+}
+.nav-links a:hover { color:white; }
+.nav-cta { padding:11px 16px; font-size:.78rem; }
+.menu-btn {
+  display:none; color:white; border:1px solid var(--line);
+  background:transparent; padding:10px 13px; border-radius:5px;
+}
+.hero {
+  min-height:100svh; display:flex; align-items:center;
+  padding-top:110px; padding-bottom:80px; overflow:hidden;
+}
+.hero-grid {
+  display:grid; grid-template-columns:1.05fr .95fr;
+  align-items:center; gap:45px;
+}
+.eyebrow {
+  display:inline-flex; gap:10px; align-items:center;
+  border:1px solid var(--line); padding:10px 14px;
+  border-radius:50px; font-size:.72rem; color:#c4d7ef;
+  letter-spacing:1.1px; margin-bottom:27px;
+  background:rgba(12,25,43,.5);
+}
+.pulse {
+  width:7px; height:7px; border-radius:50%;
+  background:#6ee7bd; box-shadow:0 0 13px #6ee7bd;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse { 50% { opacity:.35; transform:scale(.7); } }
+.hero h1 {
+  font:600 clamp(3.4rem,8vw,6.7rem)/.99 "Space Grotesk",sans-serif;
+  letter-spacing:-5px;
+}
+.hero h1 span { display:block; }
+.hero-sub {
+  color:#a8b8cc; font-size:1.08rem; line-height:1.9;
+  max-width:560px; margin:28px 0 30px;
+}
+.hero-actions { display:flex; flex-wrap:wrap; gap:13px; }
+.hero-meta {
+  display:flex; gap:25px; flex-wrap:wrap;
+  margin-top:38px; color:#8397b1; font-size:.76rem;
+}
+.hero-meta span::before { content:"✦"; color:var(--blue); margin-right:9px; }
+.hero-visual {
+  min-height:480px; display:grid; place-items:center;
+  position:relative; perspective:900px;
+}
+.orbit {
+  position:absolute; border:1px solid rgba(125,188,255,.2);
+  border-radius:50%; transform:rotate(-25deg);
+  animation:orbitFloat 10s ease-in-out infinite;
+}
+.orbit.one { width:370px; height:170px; }
+.orbit.two { width:450px; height:220px; transform:rotate(55deg); }
+.orbit.three { width:490px; height:290px; transform:rotate(-65deg); opacity:.5; }
+@keyframes orbitFloat { 50% { transform:rotate(-18deg) translateY(-9px); } }
+.planet {
+  width:205px; height:205px; border-radius:50%; position:relative;
+  background:radial-gradient(circle at 32% 25%,#b7dcff 0,#467bb1 13%,#153458 42%,#081324 70%);
+  box-shadow:inset -30px -20px 45px #02050d,0 0 70px rgba(66,151,255,.22);
+  animation:planetFloat 6s ease-in-out infinite;
+}
+.planet::after {
+  content:""; position:absolute; inset:12px; border-radius:50%;
+  border:1px solid rgba(210,235,255,.09);
+}
+@keyframes planetFloat { 50% { transform:translateY(-14px) rotate(4deg); } }
+.planet-ring {
+  position:absolute; width:310px; height:85px;
+  border:10px solid rgba(122,191,255,.48); border-left-color:transparent;
+  border-right-color:rgba(167,216,255,.7); border-radius:50%;
+  transform:rotate(-24deg); filter:drop-shadow(0 0 10px #307bc7);
+}
+.float-label {
+  position:absolute; border:1px solid var(--line);
+  background:rgba(8,18,34,.86); backdrop-filter:blur(12px);
+  padding:13px 16px; border-radius:8px;
+  font-size:.73rem; color:#c3d8f0; animation:labelFloat 5s ease-in-out infinite;
+}
+.float-label b { display:block; font-size:.9rem; color:white; margin-bottom:5px; }
+.label-a { top:55px; right:0; }
+.label-b { bottom:65px; left:0; animation-delay:-2s; }
+@keyframes labelFloat { 50% { transform:translateY(-10px); } }
+.scroll-hint {
+  position:absolute; bottom:25px; left:50%; transform:translateX(-50%);
+  color:#7c90aa; font-size:.68rem; letter-spacing:2px;
+}
+.scroll-hint span { display:block; text-align:center; margin-top:9px; animation:down 1.5s infinite; }
+@keyframes down { 50% { transform:translateY(6px); } }
+.ticker { overflow:hidden; border-block:1px solid var(--line); background:rgba(9,18,32,.7); }
+.ticker-track {
+  display:flex; width:max-content; gap:38px; padding:22px 0;
+  animation:marquee 35s linear infinite;
+}
+.ticker-track span { color:#a6bad4; font-size:.77rem; letter-spacing:2px; white-space:nowrap; }
+.ticker-track span::after { content:"✦"; margin-left:38px; color:var(--blue); }
+@keyframes marquee { to { transform:translateX(-50%); } }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+.about-copy p { color:var(--muted); line-height:2; margin-top:18px; }
+.feature-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.feature {
+  padding:25px 20px; border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(18,35,57,.7),rgba(8,16,29,.5));
+  border-radius:9px; transition:.35s;
+}
+.feature:hover { transform:translateY(-6px); border-color:rgba(139,200,255,.5); }
+.feature-icon { font-size:1.5rem; margin-bottom:20px; }
+.feature h3 { font:600 1.02rem "Space Grotesk",sans-serif; margin-bottom:10px; }
+.feature p { color:var(--muted); font-size:.83rem; line-height:1.8; }
+.metrics {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line); border-radius:10px;
+  margin-top:60px; background:rgba(11,23,40,.6);
+}
+.metric { padding:30px 20px; text-align:center; }
+.metric + .metric { border-left:1px solid var(--line); }
+.metric strong { display:block; font:600 1.8rem "Space Grotesk",sans-serif; color:#d7ebff; }
+.metric span { color:var(--muted); font-size:.75rem; margin-top:8px; display:block; }
+.alt-section { background:linear-gradient(180deg,transparent,rgba(12,25,43,.38),transparent); }
+.card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:45px; }
+.info-card {
+  position:relative; padding:30px; border:1px solid var(--line);
+  border-radius:10px; background:var(--panel); overflow:hidden;
+  transition:transform .35s,border-color .35s;
+}
+.info-card::before {
+  content:""; position:absolute; width:180px; height:180px;
+  background:radial-gradient(circle,rgba(68,144,227,.12),transparent 70%);
+  top:-90px; right:-90px; transition:.4s;
+}
+.info-card:hover { transform:translateY(-7px); border-color:rgba(139,200,255,.42); }
+.info-card:hover::before { transform:scale(1.6); }
+.card-num { color:var(--blue); font:600 .8rem "Space Grotesk",sans-serif; letter-spacing:2px; }
+.info-card h3 { font:600 1.25rem "Space Grotesk",sans-serif; margin:25px 0 14px; }
+.info-card p { font-size:.86rem; color:var(--muted); line-height:1.9; }
+.card-link { display:inline-block; margin-top:22px; color:#b9dfff; font-size:.8rem; }
+.card-link:hover { color:white; }
+.pill-row { display:flex; gap:9px; flex-wrap:wrap; margin-top:22px; }
+.pill { border:1px solid var(--line); border-radius:30px; padding:7px 11px; font-size:.69rem; color:#afc1d8; }
+.project-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:45px; }
+.project {
+  padding:0; overflow:hidden; border:1px solid var(--line);
+  border-radius:10px; background:rgba(10,21,37,.8); transition:.3s;
+}
+.project:hover { border-color:rgba(139,200,255,.5); transform:translateY(-4px); }
+.project-art {
+  min-height:180px; display:grid; place-items:center; overflow:hidden;
+  background:radial-gradient(ellipse at center,rgba(41,108,174,.28),transparent 70%),#091323;
+  border-bottom:1px solid var(--line); position:relative;
+}
+.project-art .symbol { font-size:4rem; filter:drop-shadow(0 0 20px rgba(107,180,255,.5)); transition:.5s; }
+.project:hover .symbol { transform:scale(1.18) rotate(5deg); }
+.project-body { padding:27px; }
+.project-body small { color:var(--blue); letter-spacing:2px; font-size:.67rem; }
+.project-body h3 { font:600 1.3rem "Space Grotesk",sans-serif; margin:12px 0; }
+.project-body p { color:var(--muted); font-size:.85rem; line-height:1.9; }
+.notice {
+  padding:18px 20px; border:1px solid var(--line); border-radius:7px;
+  color:#9eafc4; font-size:.8rem; line-height:1.8; margin-top:22px;
+}
+.process { margin-top:45px; display:grid; grid-template-columns:repeat(4,1fr); gap:15px; }
+.step { border-top:1px solid rgba(139,200,255,.5); padding:24px 5px 0; }
+.step-number { color:var(--blue); font:600 1.5rem "Space Grotesk",sans-serif; }
+.step h3 { margin:18px 0 10px; font-size:1rem; }
+.step p { color:var(--muted); font-size:.82rem; line-height:1.85; }
+.values-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:40px; }
+.value { padding:24px; background:rgba(14,27,46,.55); border:1px solid var(--line); border-radius:8px; }
+.value h3 { margin-bottom:11px; font:600 1.05rem "Space Grotesk",sans-serif; }
+.value p { font-size:.83rem; line-height:1.85; color:var(--muted); }
+.founder-wrap {
+  border:1px solid var(--line); border-radius:13px; overflow:hidden;
+  display:grid; grid-template-columns:.8fr 1.2fr;
+  background:linear-gradient(120deg,rgba(15,34,57,.8),rgba(7,15,27,.85));
+  margin-top:42px;
+}
+.founder-art {
+  display:grid; place-items:center; min-height:310px;
+  background:radial-gradient(circle,rgba(74,145,217,.2),transparent 65%);
+  border-right:1px solid var(--line);
+}
+.founder-art img { width:75%; max-width:300px; object-fit:contain; filter:drop-shadow(0 0 30px rgba(65,140,220,.15)); }
+.founder-info { padding:45px; align-self:center; }
+.founder-info .role { color:var(--blue); font-size:.72rem; letter-spacing:3px; text-transform:uppercase; }
+.founder-info h3 { font:600 clamp(1.8rem,4vw,3rem) "Space Grotesk",sans-serif; margin:15px 0; }
+.founder-info p { color:var(--muted); line-height:1.95; font-size:.9rem; }
+.faq-list { margin-top:40px; max-width:850px; }
+details { border-bottom:1px solid var(--line); padding:22px 0; }
+summary { cursor:pointer; list-style:none; font-weight:600; display:flex; justify-content:space-between; gap:15px; }
+summary::-webkit-details-marker { display:none; }
+summary::after { content:"+"; color:var(--blue); font-size:1.3rem; }
+details[open] summary::after { content:"−"; }
+details p { color:var(--muted); line-height:1.9; font-size:.87rem; padding-top:16px; }
+.contact-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:50px; margin-top:42px; }
+.contact-copy p { color:var(--muted); line-height:1.9; margin:18px 0 28px; }
+.contact-list { display:grid; gap:12px; }
+.contact-item {
+  border:1px solid var(--line); padding:16px; border-radius:7px;
+  background:rgba(12,24,41,.5); overflow-wrap:anywhere;
+}
+.contact-item small { color:var(--muted); display:block; margin-bottom:7px; font-size:.7rem; }
+.contact-item a { color:#dcecff; font-size:.88rem; }
+.contact-form {
+  padding:28px; border:1px solid var(--line); border-radius:10px;
+  background:rgba(12,24,41,.65);
+}
+.field { margin-bottom:18px; }
+.field label { display:block; font-size:.78rem; margin-bottom:9px; color:#c1d1e4; }
+.field input,.field textarea,.field select {
+  width:100%; padding:14px; color:white; background:#07101e;
+  border:1px solid var(--line); border-radius:5px; outline:none;
+  font:inherit; font-size:.85rem; transition:.2s;
+}
+.field input:focus,.field textarea:focus,.field select:focus { border-color:var(--blue); }
+.field textarea { resize:vertical; min-height:125px; }
+.field select option { background:#07101e; }
+.form-note { font-size:.72rem; color:var(--muted); line-height:1.8; margin-top:14px; }
+footer { border-top:1px solid var(--line); padding:35px 0; }
+.footer-top { display:flex; justify-content:space-between; align-items:center; gap:25px; flex-wrap:wrap; }
+.footer-brand { font:700 1.2rem "Space Grotesk",sans-serif; letter-spacing:4px; }
+.footer-tag { color:var(--muted); font-size:.78rem; margin-top:8px; }
+.footer-links { display:flex; gap:18px; flex-wrap:wrap; }
+.footer-links a { color:#9aacc3; font-size:.77rem; }
+.footer-links a:hover { color:white; }
+.footer-bottom {
+  border-top:1px solid var(--line); padding-top:20px; margin-top:28px;
+  display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:.7rem; color:#7488a1;
+}
+#topBtn {
+  position:fixed; bottom:22px; right:22px; z-index:40;
+  width:43px; height:43px; border:1px solid var(--line);
+  border-radius:6px; color:white; background:rgba(9,20,35,.9);
+  cursor:pointer; opacity:0; pointer-events:none; transition:.3s;
+}
+#topBtn.show { opacity:1; pointer-events:auto; }
+.reveal { opacity:0; transform:translateY(25px); transition:opacity .8s,transform .8s; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; }
+}
+@media(max-width:900px) {
+  .nav-links {
+    display:none; position:absolute; top:76px; left:0; right:0;
+    padding:25px 5%; background:rgba(5,9,20,.98);
+    border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:0;
+  }
+  .nav-links.open { display:flex; }
+  .nav-links a { padding:14px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+  .nav-cta { display:none; }
+  .menu-btn { display:block; }
+  .hero-grid,.about-grid,.contact-grid { grid-template-columns:1fr; }
+  .hero-visual { min-height:390px; }
+  .hero-copy { text-align:center; }
+  .hero-sub { margin-inline:auto; }
+  .hero-actions,.hero-meta { justify-content:center; }
+  .hero h1 { letter-spacing:-3px; }
+  .card-grid { grid-template-columns:repeat(2,1fr); }
+  .process { grid-template-columns:repeat(2,1fr); row-gap:35px; }
+  .contact-grid { gap:30px; }
+}
+@media(max-width:600px) {
+  section { padding:78px 0; }
+  .container { width:90%; }
+  .brand-name { font-size:1rem; letter-spacing:3px; }
+  .brand img { width:38px; }
+  .hero { padding-top:120px; }
+  .hero h1 { font-size:clamp(3rem,15vw,4.5rem); }
+  .hero-sub { font-size:.95rem; }
+  .hero-visual { min-height:330px; transform:scale(.85); margin:-15px 0; }
+  .orbit.one { width:300px; height:140px; }
+  .orbit.two { width:350px; height:170px; }
+  .orbit.three { width:370px; height:220px; }
+  .planet { width:160px; height:160px; }
+  .planet-ring { width:245px; height:70px; }
+  .label-a { right:-10px; }
+  .label-b { left:-10px; }
+  .card-grid,.project-grid,.values-grid { grid-template-columns:1fr; }
+  .feature-grid { gap:10px; }
+  .feature { padding:19px 14px; }
+  .metrics { grid-template-columns:repeat(2,1fr); }
+  .metric { padding:23px 10px; }
+  .metric:nth-child(3) { border-left:0; border-top:1px solid var(--line); }
+  .metric:nth-child(4) { border-top:1px solid var(--line); }
+  .metric:nth-child(2) { border-top:0; }
+  .process { grid-template-columns:1fr 1fr; }
+  .founder-wrap { grid-template-columns:1fr; }
+  .founder-art { min-height:220px; border-right:0; border-bottom:1px solid var(--line); }
+  .founder-art img { max-width:220px; }
+  .founder-info { padding:28px; }
+  .contact-form { padding:20px; }
+  .footer-top { align-items:flex-start; flex-direction:column; }
+  .footer-bottom { flex-direction:column; }
+}
+</style>
+</head>
+
+<body>
+<canvas id="stars"></canvas>
+<div class="ambient"></div>
+<div class="noise"></div>
+
+<header id="header">
+  <div class="container nav">
+    <a href="#home" class="brand" aria-label="ASTROVYN home">
+      <img src="astrovyn-logo.png" alt="ASTROVYN logo">
+      <span class="brand-name">ASTROVYN</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#domains">Research Domains</a>
+      <a href="#projects">Projects</a>
+      <a href="#approach">Our Approach</a>
+      <a href="#founder">Founder</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-outline nav-cta" href="#contact">Get In Touch ↗</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="pulse"></span> INDEPENDENT RESEARCH & INNOVATION COMMUNITY</div>
+      <h1><span>Beyond</span><span class="gradient-text">The Known.</span></h1>
+      <p class="hero-sub">
+        A community built around curiosity, scientific thinking and ambitious ideas.
+        We explore space science, emerging technologies and the possibilities that
+        begin when questions turn into experiments.
+      </p>
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-primary">Explore ASTROVYN <span>↗</span></a>
+        <a href="#projects" class="btn btn-outline">Discover Our Work ↓</a>
+      </div>
+      <div class="hero-meta">
+        <span>Curiosity Driven</span>
+        <span>Research Focused</span>
+        <span>Future Oriented</span>
+      </div>
+    </div>
+    <div class="hero-visual" aria-label="Animated planetary illustration">
+      <div class="orbit one"></div>
+      <div class="orbit two"></div>
+      <div class="orbit three"></div>
+      <div class="planet"></div>
+      <div class="planet-ring"></div>
+      <div class="float-label label-a"><b>01 / EXPLORE</b>Question the universe</div>
+      <div class="float-label label-b"><b>02 / INNOVATE</b>Build beyond boundaries</div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL TO EXPLORE <span>↓</span></div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>SPACE SCIENCE</span><span>EMERGING TECHNOLOGY</span><span>RESEARCH</span><span>ENGINEERING</span><span>ARTIFICIAL INTELLIGENCE</span><span>INNOVATION</span>
+    <span>SPACE SCIENCE</span><span>EMERGING TECHNOLOGY</span><span>RESEARCH</span><span>ENGINEERING</span><span>ARTIFICIAL INTELLIGENCE</span><span>INNOVATION</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="section-tag">01 — WHO WE ARE</div>
+        <h2 class="section-title">Curiosity is where <span class="gradient-text">everything begins.</span></h2>
+        <p class="section-desc">
+          ASTROVYN is an independent, growing community focused on exploring
+          scientific questions, studying emerging technologies and developing
+          ideas into meaningful projects.
+        </p>
+      </div>
+      <div class="about-copy reveal">
+        <p>
+          The universe is full of questions waiting to be explored. Technology
+          is full of possibilities waiting to be understood. ASTROVYN brings
+          these two perspectives together through learning, research, creativity
+          and experimentation.
+        </p>
+        <p>
+          Our approach is simple: start with a question, understand the science,
+          examine existing knowledge, develop a concept and work towards a
+          practical outcome. Not every idea becomes a breakthrough, but every
+          serious investigation can build knowledge and experience.
+        </p>
+        <p>
+          We aim to document our journey, share what we learn and gradually
+          create a space where curious minds can exchange ideas and contribute
+          to projects across science and technology.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-grid" style="margin-top:48px">
+      <article class="feature reveal">
+        <div class="feature-icon">⌘</div>
+        <h3>Research & Discovery</h3>
+        <p>Investigating scientific concepts, understanding evidence and asking better questions about the world around us.</p>
+      </article>
+      <article class="feature reveal">
+        <div class="feature-icon">◈</div>
+        <h3>Technology & Engineering</h3>
+        <p>Exploring how systems work and how engineering principles can turn theoretical ideas into practical designs.</p>
+      </article>
+      <article class="feature reveal">
+        <div class="feature-icon">◎</div>
+        <h3>Ideas & Experimentation</h3>
+        <p>Developing concepts, testing assumptions through appropriate methods and learning from both results and limitations.</p>
+      </article>
+      <article class="feature reveal">
+        <div class="feature-icon">↗</div>
+        <h3>Knowledge Sharing</h3>
+        <p>Documenting discoveries, communicating complex topics clearly and making the learning process accessible to others.</p>
+      </article>
+    </div>
+
+    <div class="metrics reveal">
+      <div class="metric"><strong>01</strong><span>Curiosity First</span></div>
+      <div class="metric"><strong>02</strong><span>Research Mindset</span></div>
+      <div class="metric"><strong>03</strong><span>Build & Learn</span></div>
+      <div class="metric"><strong>∞</strong><span>Room to Explore</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt-section" id="mission">
+  <div class="container">
+    <div class="section-tag reveal">02 — OUR PURPOSE</div>
+    <h2 class="section-title reveal">Converting curiosity <span class="gradient-text">into innovations.</span></h2>
+    <p class="section-desc reveal">
+      Our mission is to build a thoughtful environment where scientific
+      curiosity leads to structured learning, research-driven ideas and
+      projects that can be developed, tested and shared.
+    </p>
+
+    <div class="card-grid">
+      <article class="info-card reveal">
+        <div class="card-num">01 / MISSION</div>
+        <h3>Understand Before Building</h3>
+        <p>We believe that good innovation begins with understanding. We study the foundations behind an idea before attempting to develop it.</p>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">02 / VISION</div>
+        <h3>Think Beyond Boundaries</h3>
+        <p>We aspire to grow into a community that explores ambitious scientific and technological questions while remaining grounded in evidence.</p>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">03 / PRINCIPLE</div>
+        <h3>Progress Through Practice</h3>
+        <p>We value consistent learning, honest documentation, experimentation and the willingness to improve an idea when new evidence appears.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="domains">
+  <div class="container">
+    <div class="section-tag reveal">03 — AREAS OF EXPLORATION</div>
+    <h2 class="section-title reveal">A universe of <span class="gradient-text">possibilities.</span></h2>
+    <p class="section-desc reveal">
+      Our interests span several connected fields. Each domain offers a
+      different way to understand nature, develop technology and investigate
+      questions about the future.
+    </p>
+
+    <div class="card-grid">
+      <article class="info-card reveal">
+        <div class="card-num">DOMAIN / 01</div>
+        <h3>Space Science & Astronomy</h3>
+        <p>Explore planets, stars, galaxies, black holes, orbital mechanics and the physical laws that shape the universe. Understand how observations and scientific models reveal the nature of space.</p>
+        <div class="pill-row"><span class="pill">Astronomy</span><span class="pill">Planetary Science</span><span class="pill">Cosmology</span></div>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">DOMAIN / 02</div>
+        <h3>Space Technology</h3>
+        <p>Study spacecraft, satellites, launch systems, propulsion concepts, navigation and the engineering challenges involved in exploring environments beyond Earth.</p>
+        <div class="pill-row"><span class="pill">Satellites</span><span class="pill">Propulsion</span><span class="pill">Space Systems</span></div>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">DOMAIN / 03</div>
+        <h3>Artificial Intelligence</h3>
+        <p>Understand machine learning, intelligent systems, AI-assisted research and the opportunities and limitations of using computational methods to solve real problems.</p>
+        <div class="pill-row"><span class="pill">Machine Learning</span><span class="pill">AI Systems</span></div>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">DOMAIN / 04</div>
+        <h3>Robotics & Automation</h3>
+        <p>Investigate sensors, control systems, mechanical design, autonomous machines and the principles that allow robots to interact with complex environments.</p>
+        <div class="pill-row"><span class="pill">Robotics</span><span class="pill">Control Systems</span></div>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">DOMAIN / 05</div>
+        <h3>Physics & Future Concepts</h3>
+        <p>Explore mechanics, electromagnetism, energy, quantum physics and the scientific principles behind technologies that may shape future discoveries.</p>
+        <div class="pill-row"><span class="pill">Physics</span><span class="pill">Energy</span><span class="pill">Quantum Concepts</span></div>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">DOMAIN / 06</div>
+        <h3>Digital Innovation</h3>
+        <p>Develop an understanding of software, digital tools, simulations, data analysis and interactive experiences that support research and communication.</p>
+        <div class="pill-row"><span class="pill">Digital Tools</span><span class="pill">Simulation</span><span class="pill">Data</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="alt-section" id="projects">
+  <div class="container">
+    <div class="section-tag reveal">04 — IDEAS INTO ACTION</div>
+    <h2 class="section-title reveal">Research that moves <span class="gradient-text">ideas forward.</span></h2>
+    <p class="section-desc reveal">
+      ASTROVYN aims to build a growing collection of research notes, conceptual
+      designs, educational explorations and practical experiments. The following
+      themes represent possible directions for investigation, not claims of completed work.
+    </p>
+
+    <div class="project-grid">
+      <article class="project reveal">
+        <div class="project-art"><span class="symbol">🪐</span></div>
+        <div class="project-body">
+          <small>SPACE SCIENCE / CONCEPT STUDY</small>
+          <h3>Planetary Worlds</h3>
+          <p>A structured exploration of the planets, their atmospheres, magnetic fields, surface conditions and formation. Build comparative research notes to understand how different worlds evolve.</p>
+          <div class="pill-row"><span class="pill">Research Notes</span><span class="pill">Planetary Science</span></div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-art"><span class="symbol">🚀</span></div>
+        <div class="project-body">
+          <small>SPACE ENGINEERING / STUDY</small>
+          <h3>Rocket Propulsion Fundamentals</h3>
+          <p>Study Newton's laws, thrust, specific impulse and the differences between propulsion systems. Use diagrams and simulations to understand the science behind launch vehicles.</p>
+          <div class="pill-row"><span class="pill">Physics</span><span class="pill">Engineering Concepts</span></div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-art"><span class="symbol">🤖</span></div>
+        <div class="project-body">
+          <small>ROBOTICS / DESIGN EXPLORATION</small>
+          <h3>Autonomous Systems</h3>
+          <p>Explore how sensors, decision-making systems and feedback mechanisms help machines respond to their surroundings. Develop conceptual designs and safe demonstrations.</p>
+          <div class="pill-row"><span class="pill">Robotics</span><span class="pill">Automation</span></div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-art"><span class="symbol">✦</span></div>
+        <div class="project-body">
+          <small>FUTURE TECHNOLOGY / THEORY</small>
+          <h3>Advanced Energy Concepts</h3>
+          <p>Investigate how energy is generated, stored and used. Compare real technologies with speculative concepts, clearly separating demonstrated science from theoretical possibilities.</p>
+          <div class="pill-row"><span class="pill">Energy Systems</span><span class="pill">Scientific Analysis</span></div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-art"><span class="symbol">⌘</span></div>
+        <div class="project-body">
+          <small>ARTIFICIAL INTELLIGENCE / EXPLORATION</small>
+          <h3>AI for Scientific Learning</h3>
+          <p>Investigate how AI tools can assist with explanations, data organisation and research workflows while examining reliability, bias, verification and responsible use.</p>
+          <div class="pill-row"><span class="pill">AI</span><span class="pill">Research Methods</span></div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-art"><span class="symbol">◎</span></div>
+        <div class="project-body">
+          <small>COMMUNITY / KNOWLEDGE</small>
+          <h3>Knowledge Archive</h3>
+          <p>Create an organised library of research summaries, diagrams, project logs and lessons learned. The goal is to make our learning journey easier to revisit and share.</p>
+          <div class="pill-row"><span class="pill">Documentation</span><span class="pill">Knowledge Sharing</span></div>
+        </div>
+      </article>
+    </div>
+    <div class="notice reveal">
+      PROJECT STATUS: These are proposed research directions. Individual projects,
+      results, demonstrations and publications will be identified as they are
+      actually developed and documented.
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="container">
+    <div class="section-tag reveal">05 — HOW WE WORK</div>
+    <h2 class="section-title reveal">From a question to a <span class="gradient-text">clearer understanding.</span></h2>
+    <p class="section-desc reveal">
+      Meaningful work requires more than an interesting idea. A repeatable
+      process helps us examine evidence, make thoughtful decisions and improve
+      our understanding over time.
+    </p>
+    <div class="process">
+      <article class="step reveal">
+        <div class="step-number">01</div>
+        <h3>Ask</h3>
+        <p>Identify a specific question, define the problem and clarify what we need to understand.</p>
+      </article>
+      <article class="step reveal">
+        <div class="step-number">02</div>
+        <h3>Investigate</h3>
+        <p>Study reliable sources, review existing research and understand the relevant scientific principles.</p>
+      </article>
+      <article class="step reveal">
+        <div class="step-number">03</div>
+        <h3>Develop</h3>
+        <p>Build a concept, diagram, model, simulation or appropriate experiment based on what we have learned.</p>
+      </article>
+      <article class="step reveal">
+        <div class="step-number">04</div>
+        <h3>Document</h3>
+        <p>Record the method, findings, limitations and next questions so others can understand the process.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="alt-section" id="principles">
+  <div class="container">
+    <div class="section-tag reveal">06 — WHAT GUIDES US</div>
+    <h2 class="section-title reveal">Built on principles, <span class="gradient-text">not just possibilities.</span></h2>
+    <div class="values-grid">
+      <article class="value reveal"><h3>Scientific Integrity</h3><p>Distinguish established evidence, reasonable hypotheses and speculation. Never present an untested idea as a proven discovery.</p></article>
+      <article class="value reveal"><h3>Continuous Learning</h3><p>Keep developing our knowledge, welcome constructive feedback and recognise that expertise grows through consistent effort.</p></article>
+      <article class="value reveal"><h3>Responsible Innovation</h3><p>Consider safety, reliability, ethical questions and the real-world implications of technological ideas.</p></article>
+      <article class="value reveal"><h3>Creative Thinking</h3><p>Explore multiple approaches, challenge assumptions respectfully and look for new ways to frame difficult questions.</p></article>
+      <article class="value reveal"><h3>Clear Documentation</h3><p>Explain methods and outcomes honestly, including uncertainties, mistakes and limitations that others should know.</p></article>
+      <article class="value reveal"><h3>Shared Progress</h3><p>Encourage people to exchange knowledge, learn together and help turn individual curiosity into collective progress.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="future">
+  <div class="container">
+    <div class="section-tag reveal">07 — THE ROAD AHEAD</div>
+    <h2 class="section-title reveal">A long-term vision for <span class="gradient-text">exploration.</span></h2>
+    <p class="section-desc reveal">
+      ASTROVYN is a growing initiative. Its future will be shaped by the quality
+      of the work, the knowledge we develop and the community we build along the way.
+    </p>
+    <div class="card-grid">
+      <article class="info-card reveal">
+        <div class="card-num">PHASE 01</div>
+        <h3>Build the Foundation</h3>
+        <p>Establish a strong knowledge base, define research questions, develop a consistent documentation system and create a clear digital identity.</p>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">PHASE 02</div>
+        <h3>Develop & Demonstrate</h3>
+        <p>Work on carefully selected concepts, create educational models and simulations, and publish project updates supported by evidence.</p>
+      </article>
+      <article class="info-card reveal">
+        <div class="card-num">PHASE 03</div>
+        <h3>Share & Collaborate</h3>
+        <p>Connect with other curious learners, invite thoughtful discussions and build opportunities for collaboration as the community develops.</p>
+      </article>
+    </div>
+    <div class="notice reveal">
+      Our roadmap is an aspiration, not a claim of completed milestones.
+      Progress will depend on available resources, learning and the projects
+      we can responsibly undertake.
+    </div>
+  </div>
+</section>
+
+<section id="founder" class="alt-section">
+  <div class="container">
+    <div class="section-tag reveal">08 — THE PERSON BEHIND THE INITIATIVE</div>
+    <h2 class="section-title reveal">The vision behind <span class="gradient-text">ASTROVYN.</span></h2>
+    <div class="founder-wrap reveal">
+      <div class="founder-art">
+        <img src="astrovyn-logo.png" alt="ASTROVYN emblem">
+      </div>
+      <div class="founder-info">
+        <div class="role">Founder</div>
+        <h3>ANSH SRIVASTAVA</h3>
+        <p>
+          ASTROVYN was founded with an interest in science, space exploration
+          and emerging technology. The initiative represents a commitment to
+          learning, researching different ideas and working towards projects
+          that can be understood, developed and shared.
+        </p>
+        <p style="margin-top:14px">
+          The vision is to keep asking questions, build knowledge step by step
+          and create a community where curiosity can grow into thoughtful
+          experimentation and innovation.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Science</span>
+          <span class="pill">Research</span>
+          <span class="pill">Technology</span>
+          <span class="pill">Innovation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-tag reveal">09 — FREQUENTLY ASKED QUESTIONS</div>
+    <h2 class="section-title reveal">Questions worth <span class="gradient-text">asking.</span></h2>
+    <div class="faq-list reveal">
+      <details>
+        <summary>What is ASTROVYN?</summary>
+        <p>ASTROVYN is an independent, growing community focused on space science, scientific learning, research and emerging technology. It aims to turn curiosity into structured investigations and meaningful projects.</p>
+      </details>
+      <details>
+        <summary>What topics does ASTROVYN explore?</summary>
+        <p>Our areas of interest include astronomy, space technology, physics, robotics, artificial intelligence, engineering concepts and digital innovation. Focus areas may evolve as new questions and projects emerge.</p>
+      </details>
+      <details>
+        <summary>Does ASTROVYN have completed projects?</summary>
+        <p>Project descriptions on this page outline areas of interest and potential directions. A concept should only be described as completed when the work has actually been carried out and documented.</p>
+      </details>
+      <details>
+        <summary>How does ASTROVYN approach research?</summary>
+        <p>We aim to start with a clear question, examine reliable sources, understand the science, develop a concept or suitable demonstration, and document what was learned and what remains uncertain.</p>
+      </details>
+      <details>
+        <summary>Can I connect with ASTROVYN?</summary>
+        <p>Yes. You can reach out through Instagram or email using the contact details below. Introduce yourself, explain your interests and describe what you would like to discuss.</p>
+      </details>
+      <details>
+        <summary>Can I suggest a research idea?</summary>
+        <p>Absolutely. Send a short description of the question, why it interests you and what you would like to investigate. Ideas can be considered for future exploration without any promise that every proposal will become a project.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="alt-section" id="contact">
+  <div class="container">
+    <div class="section-tag reveal">10 — LET'S CONNECT</div>
+    <h2 class="section-title reveal">Have a question, an idea or a <span class="gradient-text">possibility?</span></h2>
+    <p class="section-desc reveal">
+      Whether you want to discuss science, share an idea, ask a question or
+      learn more about ASTROVYN, start a conversation.
+    </p>
+
+    <div class="contact-grid">
+      <div class="contact-copy reveal">
+        <h3 style="font:600 1.5rem 'Space Grotesk',sans-serif">Start a conversation.</h3>
+        <p>
+          We welcome thoughtful questions, constructive discussions and ideas
+          related to science, technology, learning and innovation. Tell us what
+          you are curious about.
+        </p>
+        <div class="contact-list">
+          <div class="contact-item">
+            <small>INSTAGRAM</small>
+            <a href="https://www.instagram.com/astr_ovyn/" target="_blank" rel="noopener noreferrer">@astr_ovyn ↗</a>
+          </div>
+          <div class="contact-item">
+            <small>EMAIL</small>
+            <a href="mailto:astrovyn.nexus@gmail.com">astrovyn.nexus@gmail.com ↗</a>
+          </div>
+          <div class="contact-item">
+            <small>MOBILE</small>
+            <a href="tel:+917485071347">+91 7485071347 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="Enter your name" required maxlength="100">
+        </div>
+        <div class="field">
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required maxlength="150">
+        </div>
+        <div class="field">
+          <label for="topic">What would you like to discuss?</label>
+          <select id="topic" name="topic">
+            <option>General Inquiry</option>
+            <option>Space Science</option>
+            <option>Technology & Engineering</option>
+            <option>Research Idea</option>
+            <option>Project Collaboration</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Your message</label>
+          <textarea id="message" name="message" placeholder="Tell us what you have in mind..." required maxlength="3000"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" style="width:100%">Prepare Your Message ↗</button>
+        <p class="form-note" id="formNote">This form opens your email application to send the message. It does not store submissions on this website.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container reveal" style="text-align:center;padding:35px 0">
+    <div class="section-tag">THE ASTROVYN OUTLOOK</div>
+    <h2 class="section-title" style="margin:auto">The universe is vast.<br><span class="gradient-text">Our curiosity should be, too.</span></h2>
+    <p class="section-desc" style="margin:22px auto 28px">Keep exploring. Keep questioning. Keep building.</p>
+    <a href="#home" class="btn btn-outline">Return to the Beginning ↑</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">ASTROVYN</div>
+        <div class="footer-tag">Converting curiosity into innovations.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#domains">Domains</a>
+        <a href="#projects">Projects</a>
+        <a href="#founder">Founder</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.instagram.com/astr_ovyn/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> ASTROVYN. All rights reserved.</span>
+      <span>Curiosity → Research → Innovation</span>
+    </div>
+  </div>
+</footer>
+
+<button id="topBtn" aria-label="Back to top">↑</button>
+
+<script>
+/* ANIMATED STAR FIELD */
+(() => {
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  let w, h, stars = [], dpr = 1;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.min(180, Math.floor(w * h / 6500));
+    stars = Array.from({length:count}, () => ({
+      x:Math.random()*w,
+      y:Math.random()*h,
+      r:Math.random()*1.25+.2,
+      a:Math.random()*.6+.2,
+      phase:Math.random()*Math.PI*2,
+      speed:Math.random()*.012+.003
+    }));
+    draw(0);
+  }
+
+  function draw(time) {
+    ctx.clearRect(0,0,w,h);
+    for (const s of stars) {
+      const twinkle = reducedMotion ? 1 : .7 + .3*Math.sin(time*s.speed+s.phase);
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(177,214,255,${s.a*twinkle})`;
+      ctx.fill();
+    }
+  }
+
+  function animate(time) {
+    draw(time);
+    if (!reducedMotion) requestAnimationFrame(animate);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  if (!reducedMotion) requestAnimationFrame(animate);
+})();
+
+/* NAVIGATION */
+const header = document.getElementById("header");
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+  header.classList.toggle("scrolled", window.scrollY > 20);
+  topBtn.classList.toggle("show", window.scrollY > 450);
+}, {passive:true});
+
+menuBtn.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.textContent = open ? "✕" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded","false");
+    menuBtn.textContent = "☰";
+  });
+});
+
+topBtn.addEventListener("click", () => {
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* SCROLL REVEAL */
+const revealElements = document.querySelectorAll(".reveal");
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.12});
+  revealElements.forEach(el => observer.observe(el));
+} else {
+  revealElements.forEach(el => el.classList.add("visible"));
+}
+
+/* CONTACT FORM: PREPARES AN EMAIL */
+document.getElementById("contactForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const topic = document.getElementById("topic").value;
+  const message = document.getElementById("message").value.trim();
+
+  const subject = encodeURIComponent("ASTROVYN Inquiry: " + topic);
+  const body = encodeURIComponent(
+    "Name: " + name + "\n" +
+    "Email: " + email + "\n" +
+    "Topic: " + topic + "\n\n" +
+    "Message:\n" + message
+  );
+
+  document.getElementById("formNote").textContent =
+    "Your email application should open with your message prepared. Please review and send it there.";
+
+  window.location.href =
+    "mailto:astrovyn.nexus@gmail.com?subject=" + subject + "&body=" + body;
+});
+</script>
+</body>
+</html>
